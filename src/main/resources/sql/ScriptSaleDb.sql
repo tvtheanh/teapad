@@ -66,6 +66,14 @@ create table price (
 	del boolean default false
 );
 
+select e.id, e.product_id, p.name, e.cate, e.price
+from price e
+	join product p on (p.id=e.product_id)
+where e.del=false;
+
+insert into price(product_id, cate, price)
+	values (1, 'Giá chuẩn', 29500);
+
 
 /*
  * product number in stock
@@ -150,3 +158,6 @@ create table invoicedetail (
 );
 
 select * from invoicedetail;
+
+CREATE INDEX idx_invoicedetail_invoiceid
+ON invoicedetail(invoice_id);

@@ -8,6 +8,7 @@ import lombok.Data;
 public class Price {
 	private int id;
 	private int product_id;
+	private String product_name;
 	private BigDecimal price;
 	private String cate;
 	private boolean enabled;

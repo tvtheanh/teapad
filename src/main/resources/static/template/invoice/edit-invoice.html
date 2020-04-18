@@ -10,7 +10,7 @@
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.errorMessage}}
 			</div>
-			<div class="col-md-offset-6 alert alert-success" role="alert" style="position:fixed"
+			<div class="col-md-offset-6 col-md-4 alert alert-success" role="alert" style="position:fixed;"
 				data-uib-alert data-ng-if="alert.message"
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.message}}
@@ -18,6 +18,7 @@
 			<div class="row">
 			<div class="col-md-3">
 				<div class="panel panel-default" style="padding: 5px">
+					<h4>Thông tin Đơn hàng</h4>
 					<div class="form-group">
 						<label class="col-md-8"> Mã khách hàng </label>
 						<div class="col-md-4">
@@ -26,7 +27,7 @@
 						<div class="col-md-12"  style="margin-bottom: 5px">
 							<span class="label label-info">{{invoice.customerName}}</span>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12 form-group-sm">
 							<ui-select data-ng-model="customer.selected" data-theme="bootstrap" 
 									   data-on-select="onSelected($item)" data-title="Chọn khách hàng">
 							    <ui-select-match data-placeholder="Chọn lại khách hàng ...">
@@ -46,23 +47,10 @@
 				      	<div class="col-md-6">
 							<span class="label label-success">{{invoice.saledate | date:'dd/MM/yyyy'}}</span>
 						</div>
-				      	<div  class="col-md-12">
-					        <div class="input-group">
-					          	<input type="text" class="form-control" 
-					          		 data-uib-datepicker-popup="{{format}}" data-ng-model="saledate" 
-					          		 data-is-open="popup1.opened" data-datepicker-options="dateOptions" 
-					          		 data-ng-required="true" data-close-text="Close" />
-					          	<span class="input-group-btn">
-						            <button type="button" class="btn btn-default" data-ng-click="open1()">
-						            	<i class="glyphicon glyphicon-calendar"></i>
-						            </button>
-					          </span>
-					        </div>
-					     </div>
 				    </div>
 				    <div>
 					    <div class="form-actions">
-							<button type="button" data-ng-click="submitEmployeeForm()" class="btn btn-primary btn-sm">
+							<button type="button" data-ng-click="submitInvoiceForm()" class="btn btn-primary btn-sm">
 								Lưu
 							</button>
 							<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
@@ -74,15 +62,15 @@
 			</div>
 		  	<div class="col-md-1"></div>
 			<div class="col-md-8">
-				<h4>Chi tiết hóa đơn</h4>
-			  	<table class="table">
+				<h4>Chi tiết Đơn hàng</h4>
+			  	<table class="table table-hover table-condensed">
 	                <thead>
 	                    <tr>
 	                        <th>Mã sản phẩm</th>
 	                        <th>Tên sản phẩm</th>
-	                        <th>Đơn giá</th>
-	                        <th>Số lượng</th>
-	                        <th>Thành tiền</th>
+	                        <th class="text-right">Đơn giá</th>
+	                        <th class="text-right">Số lượng</th>
+	                        <th class="text-right">Thành tiền</th>
 	                        <th>Xóa</th>
 	                    </tr>
 	                </thead>
@@ -90,13 +78,13 @@
 	                    <tr data-ng-repeat="detail in saleProducts">
 	                        <td>{{detail.product_id}}</td>
 	                        <td>{{detail.productName}}</td>
-	                        <td>{{detail.product_price | currency:"":0}}</td>
-	                        <td>{{detail.quantity}}</td>
-	                        <td>{{detail.amount | currency:"":0}}</td>
+	                        <td class="text-right">{{detail.product_price | currency:"":0}}</td>
+	                        <td class="text-right">{{detail.quantity}}</td>
+	                        <td class="text-right">{{detail.amount | currency:"":0}}</td>
 	                        <td title="'Xóa'" >
 								<button data-uib-popover-template="'myPopoverTemplate.html'" 
 									data-popover-trigger="'outsideClick'" data-popover-title="Xác nhận?" 
-									type="button" class="btn btn-danger btn-sm">
+									type="button" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 								<script type="text/ng-template" id="myPopoverTemplate.html">
@@ -119,7 +107,7 @@
 					    	</td>
 					    	<td></td>
 					    	<td><strong>TỔNG TIỀN</strong></td>
-					      	<td></td>
+					      	<td class="text-right"><strong>{{invoice.total | currency:"":0}}</strong></td>
 					      	<td></td>
 					    </tr>
 					</tfoot>
@@ -129,9 +117,10 @@
 			<hr/>
 			<div class="alert alert-info" role="alert">
 				<div class="row">
-					<div class="form-group col-md-5">
+					<div class="col-md-4 form-group-sm">
 						<div class="col-md-11">
-							<ui-select data-ng-model="product.selected" data-theme="bootstrap" data-title="Chọn sản phẩm">
+							<ui-select data-ng-model="product.selected" data-on-select="selectProduct($item)"
+										data-theme="bootstrap" data-title="Chọn sản phẩm">
 							    <ui-select-match data-placeholder="Chọn sản phẩm trong danh sách dưới đây ...">
 							      	{{product.selected.id}} --- {{product.selected.name}}
 							    </ui-select-match>
@@ -144,18 +133,20 @@
 						    </ui-select>
 						</div>
 					</div>
-					<div class="form-group col-md-2">
-						<div class="col-md-11">
+					<div class="form-group col-md-3">
+						<div class="col-md-12">
 							<select data-ng-model="price" class="form-control input-sm">
-								<option value="{{product.selected.price}}">Giá chuẩn: {{product.selected.price | currency:"":0}}</option>
-								<option value="{{product.selected.lessprice}}">Giá ưu đãi: {{product.selected.lessprice | currency:"":0}}</option>
+								<option disabled value="">Chọn giá</option>
+								<option data-ng-repeat="option in prices" value="{{option.price}}">
+									{{option.cate + ': '}} {{option.price | currency:'':0}}
+								</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group col-md-2">
 						<div class="col-md-11">
 							<input type="text" data-ng-model="quantity" id="quantity" required="required"
-								class="form-control input-sm" placeholder="Nhập số lượng" />
+								class="form-control input-sm" placeholder="Số lượng" />
 						</div>
 					</div>
 					<div class="form-group col-md-2">

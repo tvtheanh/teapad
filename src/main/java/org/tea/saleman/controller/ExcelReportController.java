@@ -19,7 +19,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tea.saleman.domain.TimesheetExcel;
-import org.tea.saleman.service.TimesheetService;
+import org.tea.saleman.repository.TimesheetRepository;
 
 
 @Controller
@@ -27,7 +27,7 @@ import org.tea.saleman.service.TimesheetService;
 public class ExcelReportController {
 	
 	@Autowired
-	TimesheetService timesheetService;
+	TimesheetRepository timesheetRepo;
 	
 	public static final String reportFolder = "C:/webapp/timesheet/";
 	public static final String templateFilePath = reportFolder + "bangchamcong.xlsx";
@@ -35,7 +35,7 @@ public class ExcelReportController {
 	
 	@RequestMapping("/excel")
 	public String excel(@RequestParam String month, @RequestParam String year) {
-		List<TimesheetExcel> allTimesheet = timesheetService.excelByMonth(month, year);
+		List<TimesheetExcel> allTimesheet = timesheetRepo.excelByMonth(month, year);
 		File initialFile = new File(templateFilePath);
 		try (InputStream is = new FileInputStream(initialFile)) {
 			try (OutputStream os = new FileOutputStream(outputFilePath)) {

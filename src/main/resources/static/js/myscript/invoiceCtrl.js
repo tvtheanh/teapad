@@ -161,22 +161,29 @@
 	function EditInvoiceCtrl($scope, $http, $location, $routeParams, $route) {
 		
 		$scope.invoice_id = $routeParams.id;
+		
 		$scope.alert = undefined;
-		$scope.customers = undefined;
 		$scope.saleProducts = [];
-		$scope.product = {};
+		$scope.customers = undefined;
+		$scope.products = undefined;
+		$scope.prices = undefined;
+		$scope.customer = {};        // selected customer
+		$scope.product = {};         // selected product
 		
 		
 		// get the invoice by id and its details
-		$http({
-			method: "GET",
-			url: GLOBAL_URL.invoiceBaseUrl + $scope.invoice_id
-		})
-		.then(function success(response) {
-			$scope.invoice = response.data;
-		}, function error(response) {
-			$scope.alert = { errorMessage: "(Error " + response.status + ") Không tìm được đơn hàng" };
-		});
+		$scope.loadInvoice = function () {
+			$http({
+				method: "GET",
+				url: GLOBAL_URL.invoiceBaseUrl + $scope.invoice_id
+			})
+			.then(function success(response) {
+				$scope.invoice = response.data;
+			}, function error(response) {
+				$scope.alert = { errorMessage: "(Error " + response.status + ") Không tìm được đơn hàng" };
+			});
+		};
+		$scope.loadInvoice();
 		
 		$scope.showDetail = function () {
 			$http({
@@ -216,8 +223,18 @@
 		});
 		
 		
-		$scope.onSelected = function (selectedItem) {
-			console.log(selectedItem.id);
+		// get prices for the selected product
+		$scope.selectProduct = function ($item) {
+			$scope.price = undefined;   // reset value for the dropdown
+			$http({
+				method: "GET",
+				url: GLOBAL_URL.priceBaseUrl + "byproduct?productid=" + $item.id
+			})
+			.then(function success(response) {
+				$scope.prices = response.data;
+			}, function error(response) {
+				$scope.alert = { errorMessage: "(Error " + response.status + ") Lỗi không lấy được giá của sản phẩm này" };
+			});
 		}
 		
 		// ui-bootstrap date picker
@@ -253,13 +270,18 @@
 			$scope.alert = undefined;
 		};
 		
+		// click event for update invoice information
 		$scope.submitInvoiceForm = function () {
+			$scope.invoice.customer_id = $scope.customer.selected.id;
+			
 			$http({
 				method: "PUT",
 				url: GLOBAL_URL.invoiceBaseUrl + $scope.invoice_id,
 				data: $scope.invoice
 			})
 			.then(function success(response) {
+				$scope.loadInvoice();     
+				$scope.customer = {};    // reset the dropdown control
 				$scope.alert = { message: "Cập nhật thành công!" };
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Cập nhật thất bại" };
@@ -278,6 +300,7 @@
 				$scope.product.selected = undefined;
 				$scope.price = undefined;
 				$scope.quantity = undefined;
+				$scope.alert = { message: "Thêm chi tiết đơn hàng thành công!" };
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Lỗi không thêm được chi tiết đơn hàng" };
 			});

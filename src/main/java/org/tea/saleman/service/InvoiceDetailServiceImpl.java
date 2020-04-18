@@ -11,15 +11,12 @@ import org.tea.saleman.repository.InvoiceRepository;
 @Service
 public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	
+	@Autowired
 	private InvoiceDetailRepository invoiceDetailRepository;
-	private InvoiceRepository invoiceRepository;
 	
 	@Autowired
-	public InvoiceDetailServiceImpl(InvoiceDetailRepository invoiceDetailRepository,
-			InvoiceRepository invoiceRepository) {
-		this.invoiceDetailRepository = invoiceDetailRepository;
-		this.invoiceRepository = invoiceRepository;
-	}
+	private InvoiceRepository invoiceRepository;
+	
 
 	@Override
 	public List<InvoiceDetail> findByInvoiceId(int invoiceId) {

@@ -105,7 +105,6 @@ public class HomeController {
 			parameters.put("invoice_id", id);
 			parameters.put("customerName", invoice.getCustomerName());
 			parameters.put("customerAddress", invoice.getCustomerAddress());
-			parameters.put("total", invoice.getTotal());
 			parameters.put("bangchu", ChuyenTienRaChu.ChuyenSangChu(String.valueOf(invoice.getTotal())));
 			bytes = JasperRunManager.runReportToPdf(jasperFile.getPath(), parameters, dataSource.getConnection());
 		} catch (JRException | SQLException | FileNotFoundException e) {

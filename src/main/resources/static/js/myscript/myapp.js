@@ -8,6 +8,9 @@ var GLOBAL_URL = {
 	get productBaseUrl() {
 		return "rest/product/";
 	},
+	get priceBaseUrl() {
+		return "rest/price/";
+	},
 	get providerBaseUrl() {
 		return "rest/provider/";
 	},
@@ -25,6 +28,9 @@ var GLOBAL_URL = {
 	},
 	get productTemplatePath() {
 		return "template/product/";
+	},
+	get priceTemplatePath() {
+		return "template/price/";
 	},
 	get providerTemplatePath() {
 		return "template/provider/";
@@ -58,6 +64,7 @@ var GLOBAL_URL = {
 			{view: "home", name: "Home"},
 			{view: "customer", name: "Khách hàng"},
 			{view: "product", name: "Sản phẩm"},
+			{view: "price", name: "Giá cả"},
 			{view: "invoice", name: "Đơn hàng"},
 			{view: "employee", name: "Nhân sự"}
 		];
@@ -126,6 +133,22 @@ var GLOBAL_URL = {
 				.when("/edit-product/:id", {
 					templateUrl: GLOBAL_URL.productTemplatePath + "edit-product.html",
 					controller: "EditProductCtrl"
+				})
+				.when("/home-price", {
+					templateUrl: GLOBAL_URL.priceTemplatePath + "home-price.html"
+				})
+				.when("/list-price", {
+					templateUrl: GLOBAL_URL.priceTemplatePath + "list-price.html",
+					controller: "ListPriceCtrl",
+					controllerAs: "vm"
+				})
+				.when("/add-price", {
+					templateUrl: GLOBAL_URL.priceTemplatePath + "add-price.html",
+					controller: "AddPriceCtrl"
+				})
+				.when("/edit-price/:id", {
+					templateUrl: GLOBAL_URL.priceTemplatePath + "edit-price.html",
+					controller: "EditPriceCtrl"
 				})
 				.when("/home-invoice", {
 					templateUrl: GLOBAL_URL.invoiceTemplatePath + "home-invoice.html"

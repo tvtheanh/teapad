@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tea.saleman.domain.Product;
 
+
 public interface ProductRepository {
 	List<Product> listAll();
 	Product findById(int id);

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.tea.saleman.domain.Product;
 
+
 @Repository
 public class JdbcProductRepository implements ProductRepository {
 	
@@ -81,4 +82,5 @@ public class JdbcProductRepository implements ProductRepository {
 		jdbcTemplate.update(DELETE_PRODUCT, id);
 	}
 
+	
 }

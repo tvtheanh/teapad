@@ -2,7 +2,7 @@
 	<div class="alert alert-info">
 		<div class="row">
 			<div class="col-md-7">
-				<span class="lead">Danh sách Sản phẩm</span>
+				<span class="lead">Danh sách Giá</span>
 				<p>Lọc <span class="badge">{{vm.tableParams.total()}}</span>
 				trong tổng số <span class="badge">{{vm.countAll}}</span></p>				  
 			</div>
@@ -23,14 +23,13 @@
 			<table class="table table-bordered table-hover table-condensed"
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
-				<tr data-ng-repeat="product in $data | orderBy:'-id'">
-					<td title="'Mã'" data-filter="{id: 'number'}">{{product.id}}</td>
-					<td title="'Tên sản phẩm'" data-filter="{name: 'text'}" style="width: 30%">{{product.name}}</td>
-					<td title="'Đơn vị'" data-filter="{unit: 'text'}">{{product.unit}}</td>
-					<td title="'Nhà cung cấp'" data-filter="{provider_name: 'text'}">{{product.provider_name}}</td>
-					<td title="'Giá'" data-filter="{price: 'number'}">{{product.price | currency:"":0}}</td>
+				<tr data-ng-repeat="price in $data | orderBy:'-id'">
+					<td title="'Mã'" data-filter="{id: 'number'}">{{price.id}}</td>
+					<td title="'Tên sản phẩm'" data-filter="{product_name: 'text'}" style="width: 30%">{{price.product_name}}</td>
+					<td title="'Loại'" data-filter="{cate: 'text'}">{{price.cate}}</td>
+					<td title="'Giá'" data-filter="{price: 'number'}">{{price.price | currency:"":0}}</td>
 					<td title="'Sửa'" >
-						<button type="button" data-ng-click="editProduct(product.id)"
+						<button type="button" data-ng-click="editPrice(price.id)"
 							class="btn btn-primary btn-sm">
 							<span class="glyphicon glyphicon-edit"></span>
 						</button>
@@ -42,7 +41,7 @@
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 						<script type="text/ng-template" id="myPopoverTemplate.html">
-          					<button type="button" ng-click="deleteProduct(product.id)"
+          					<button type="button" ng-click="deletePrice(price.id)"
 									class="btn btn-danger btn-sm">Xóa
 							</button>
     					</script>

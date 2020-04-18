@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-2" for="customer_id"> Mã khách hàng </label>
-					<div class="col-md-5">
+					<div class="col-md-5 form-group-sm">
 						<ui-select data-ng-model="customer.selected" data-theme="bootstrap" data-title="Chọn khách hàng">
 						    <ui-select-match data-placeholder="Chọn khách hàng trong danh sách dưới đây ...">
 						      	{{customer.selected.id}} --- {{customer.selected.name}}
@@ -36,7 +36,7 @@
 		    <div class="row">
 		      <div class="form-group col-md-12">
 		      	<label class="col-md-2"> Ngày bán </label>
-		      	<div class="col-md-5">
+		      	<div class="col-md-5 form-group-sm">
 			        <div class="input-group">
 			          	<input type="text" class="form-control" 
 			          		 data-uib-datepicker-popup="{{format}}" data-ng-model="invoice.saledate" 
