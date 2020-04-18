@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap-theme.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body onload='document.f.username.focus();'>
+	<section>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>Phần mềm quản lý</h1>
+				<p>Sử dụng nội bộ tại ...</p>
+			</div>
+		</div>
+	</section>
+	<section class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Nhập tài khoản và mật khẩu</h3>
+					</div>
+					<div class="panel-body">
+						<div th:if="${param.error}" class="alert alert-danger">
+							<p>Tên và mật khẩu không hợp lệ.</p>
+						</div>
+						<div th:if="${param.logout}" class="alert alert-success">
+							<p>Đăng xuất thành công.</p>
+						</div>
+						<div th:if="${param.denied}"  class="alert alert-danger">
+							<p>Access Denied: Bạn không đủ quyền truy cập! </p>
+						</div>
+						<form name="f" method="POST" action="#" th:action="@{/login}" class="form-horizontal">
+							<div class="input-group input-sm">
+								<label class="input-group-addon" for="username">Tài khoản</label>
+								<input type="text" class="form-control" name="username"
+									placeholder="Enter Username" required>
+							</div>
+							<div class="input-group input-sm">
+								<label class="input-group-addon" for="password">Mật khẩu&nbsp;</label>
+								<input type="password" class="form-control" name="password" 
+									placeholder="Enter Password" required>
+							</div>
+							<div class="form-actions">
+								<input name="submit" type="submit" class="btn btn-block btn-primary btn-default" value="Đăng nhập">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

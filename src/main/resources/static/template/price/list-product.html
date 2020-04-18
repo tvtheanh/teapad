@@ -1,0 +1,55 @@
+<div class="panel panel-default ">
+	<div class="alert alert-info">
+		<div class="row">
+			<div class="col-md-7">
+				<span class="lead">Danh sách Sản phẩm</span>
+				<p>Lọc <span class="badge">{{vm.tableParams.total()}}</span>
+				trong tổng số <span class="badge">{{vm.countAll}}</span></p>				  
+			</div>
+			<div class="col-md-5">
+				<form class="navbar-form" role="search">
+				    <div class="input-group add-on">
+				      <input class="form-control" placeholder="Tìm" name="search-term" id="search-term" type="number">
+				      <div class="input-group-btn">
+				        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				      </div>
+				    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover table-condensed"
+					data-ng-table="vm.tableParams" data-show-filter="true">
+				
+				<tr data-ng-repeat="product in $data | orderBy:'-id'">
+					<td title="'Mã'" data-filter="{id: 'number'}">{{product.id}}</td>
+					<td title="'Tên sản phẩm'" data-filter="{name: 'text'}" style="width: 30%">{{product.name}}</td>
+					<td title="'Đơn vị'" data-filter="{unit: 'text'}">{{product.unit}}</td>
+					<td title="'Nhà cung cấp'" data-filter="{provider_name: 'text'}">{{product.provider_name}}</td>
+					<td title="'Giá'" data-filter="{price: 'number'}">{{product.price | currency:"":0}}</td>
+					<td title="'Sửa'" >
+						<button type="button" data-ng-click="editProduct(product.id)"
+							class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-edit"></span>
+						</button>
+					</td>
+					<td title="'Xóa'" >
+						<button data-uib-popover-template="'myPopoverTemplate.html'" 
+							data-popover-trigger="'outsideClick'" data-popover-title="Xác nhận?" 
+							type="button" class="btn btn-danger btn-sm">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+						<script type="text/ng-template" id="myPopoverTemplate.html">
+          					<button type="button" ng-click="deleteProduct(product.id)"
+									class="btn btn-danger btn-sm">Xóa
+							</button>
+    					</script>
+					</td>				
+				</tr>
+				
+			</table>
+		</div>
+	</div>
+</div>

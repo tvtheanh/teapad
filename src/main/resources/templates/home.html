@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html data-ng-app="myapp" 
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Sale Management</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="css/ui-select/select.css">
+	<link rel="stylesheet" href="css/ng-table/ng-table.min.css">
+	
+	<!-- jQuery library -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<!-- Initialize Bootstrap functionality -->
+	<script>
+		// Initialize tooltip component
+		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		});
+		
+		// Initialize popover component
+		$(function () {
+		  $('[data-toggle="popover"]').popover()
+		});
+	</script>
+	
+	<script src="/js/angularjs/1.5.9/angular.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-sanitize.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-route.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-resource.js"></script>
+	
+	<script src="/js/ui-select/select.js"></script>
+	<script src="/js/ui-bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+	<script src="/js/ng-table/ng-table.js"></script>
+	
+	<script src="/js/myscript/myapp.js"></script>
+	<script src="/js/myscript/customerCtrl.js"></script>
+	<script src="/js/myscript/employeeCtrl.js"></script>
+	<script src="/js/myscript/productCtrl.js"></script>
+	<script src="/js/myscript/invoiceCtrl.js"></script>
+	<script src="/js/myscript/reportCtrl.js"></script>
+	<script src="/js/myscript/invoiceReportCtrl.js"></script>
+	
+	<style type="text/css">
+        .container-fluid {
+        	margin-left: 10px;
+            margin-right: 10px;
+        }
+    </style>
+	
+</head>
+
+<body>
+	<div data-ng-controller="menuController" class="container-fluid">
+		<div id="custom-bootstrap-menu" class="navbar navbar-inverse" role="navigation">
+	        <div class="navbar-header"><a class="navbar-brand" href="#">
+	        	<img alt="logo" width="36" height="28" /> </a>
+	            <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+	            	<span class="sr-only">Toggle navigation</span>
+	            	<span class="icon-bar"></span>
+	            	<span class="icon-bar"></span>
+	            	<span class="icon-bar"></span>
+	            </button>
+	        </div>
+	        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+	            <ul class="nav navbar-nav navbar-left">
+	                <li data-ng-repeat="menu in menulist" data-ng-click="changeview(menu)" 
+	                	data-ng-class="{'active': menu.view == selectedView}">
+	                	<a><strong>{{menu.name}}</strong></a>
+	                </li>
+	            </ul>
+	            <br/>
+	            <span class="pull-right">
+	            	<span th:text="${username}" style="color:grey"> </span>
+		            <a href="/logout">
+		            	<span class="glyphicon glyphicon-log-out"/></span> Đăng xuất
+		            </a>
+	            </span>
+	            
+	        </div>
+		        
+		</div>
+		<div data-ng-include="content"></div>
+	</div>
+	
+</body>
+</html>

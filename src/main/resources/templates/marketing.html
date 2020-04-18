@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html data-ng-app="myapp">
+<head>
+	<meta charset="UTF-8" />
+	<title>Marketing sale page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="css/ui-select/select.css">
+	<link rel="stylesheet" href="css/ng-table/ng-table.min.css">
+	
+</head>
+
+<body>
+	
+		
+	<div class="container-fluid">
+		
+		<nav class="navbar navbar-default">
+			<a href="#/marketing-add-invoice" role="button" class="btn btn-default navbar-btn">Thêm mới
+			</a>
+			<a href="#/marketing-list-invoice" role="button" class="btn btn-default navbar-btn">Danh sách
+			</a>
+			<a href="#" id="cache-btn" role="button" class="btn btn-default navbar-btn">Cập nhật
+			</a>
+		</nav>
+		
+		<div data-ng-view></div>
+		
+	</div>
+	
+	
+	<script>
+		// cache
+		var cacheName = 'helloWorld';
+		document.querySelector('#cache-btn').addEventListener('click', function(event) {
+			event.preventDefault();
+			const requestToCache = '/rest/customer/';
+			fetch(requestToCache)
+				.then(function (response) {
+					// error
+					if (!response || response.status !== 200) {
+						return response;
+					}
+					// everything fine
+					var responseToCache = response.clone();
+					caches.open(cacheName)
+						.then(function (cache) {
+							cache.put(requestToCache, responseToCache);
+						});
+				});
+		});
+	
+		// Register the service worker
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker
+				.register('service-worker.js')
+				.then(function (registration) {
+					console.log('ServiceWorker registration successful with scope: ', registration.scope);
+				})
+				.catch(function (err) {
+					console.log('ServiceWorker registration failed: ', err);
+				});
+		}
+	</script>
+	
+	<script src="/js/angularjs/1.5.9/angular.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-sanitize.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-route.js"></script>
+	<script src="/js/angularjs/1.5.9/angular-resource.js"></script>
+	
+	<script src="/js/ui-select/select.js"></script>
+	<script src="/js/ui-bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+	<script src="/js/ng-table/ng-table.js"></script>
+	
+	<script src="/js/myscript/marketingApp.js"></script>
+	<script src="/js/myscript/marketingCtrl.js"></script>
+</body>
+</html>

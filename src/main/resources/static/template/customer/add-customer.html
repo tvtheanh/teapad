@@ -1,0 +1,93 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Thêm mới</span>
+		<p>Thêm mới Khách hàng</p>
+	</div>
+	<div data-enter-to-tab class="panel-body ">
+		<form class="form-horizontal">
+			<div class="col-md-offset-8 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="name"> Tên khách hàng </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="customer.name" id="name" required="required"
+							class="form-control input-sm" placeholder="Nhập tên khách hàng" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="address"> Địa chỉ </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="customer.address" id="address" required="required"
+							class="form-control input-sm" placeholder="Nhập địa chỉ chi tiết đến phường, xã" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="district"> Huyện </label>
+					<div class="col-md-5">
+						<select data-ng-model="customer.district" id="district" required="required"
+							class="form-control input-sm">
+							<option value="">Chọn huyện</option>
+        					<option>TP. Sóc Trăng</option>
+        					<option>Mỹ Xuyên</option>
+        					<option>Long Phú</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="province"> Tỉnh </label>
+					<div class="col-md-5">
+						<select data-ng-model="customer.province" id="province" required="required"
+							class="form-control input-sm">
+							<option value="">Chọn tỉnh</option>
+        					<option>Sóc Trăng</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="contact"> Người đại diện </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="customer.contact" id="contact" required="required"
+							class="form-control input-sm" placeholder="Nhập tên người đại diện" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="phone"> Điện thoại </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="customer.phone" id="phone" required="required"
+							class="form-control input-sm" placeholder="Nhập số điện thoại liên hệ" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<button type="button" data-ng-click="submitCustomerForm()" class="btn btn-primary btn-sm">
+						Thêm mới
+					</button>
+					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
+						Reset Form
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	

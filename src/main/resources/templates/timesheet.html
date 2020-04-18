@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html data-ng-app="app" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap 3 Simple Tables</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular-sanitize.min.js"></script>
+    <script src="/js/ui-bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <!-- Angular-xeditable -->
+    <link href="/xedit/angular-xeditable/css/xeditable.css" rel="stylesheet">
+    <script src="/xedit/angular-xeditable/js/xeditable.js"></script>
+    <!-- app.js -->
+    <script src="/xedit/app.js"></script>
+    <!-- custom style table { table-layout: fixed; }-->
+    <style type="text/css">
+        .container-fluid {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div data-ng-controller="Ctrl">
+        <div class="container-fluid">
+        	<div id="custom-bootstrap-menu" class="navbar navbar-inverse" role="navigation">
+		        <div class="navbar-header"><a class="navbar-brand" href="#">
+		        	<img alt="image" width="36" height="28" /> </a>
+		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+		            	<span class="sr-only">Toggle navigation</span>
+		            	<span class="icon-bar"></span><span class="icon-bar"></span>
+		            	<span class="icon-bar"></span>
+		            </button>
+		        </div>
+		        <div class="collapse navbar-collapse navbar-menubuilder">
+		            <ul class="nav navbar-nav navbar-left">
+		                <li>
+		                	<a href="/">Home</a>
+		                </li>
+		                <li class="active">
+		                	<a href="#">Chấm công</a>
+		                </li>
+		            </ul>
+		            <br/>
+		            <a class="pull-right" th:href="@{/logout}">
+		            	<span class="glyphicon glyphicon-log-out"/></span> Đăng xuất
+		            </a>
+		        </div>
+			</div>
+			<div class="panel panel-default ">
+				<div class="alert alert-info">
+					<div class="row">
+						<div class="col-md-7">
+							<span class="lead">Bảng chấm công tháng {{ acc_month }} năm {{ acc_year }}</span>		  
+						</div>
+						<div class="col-md-1">
+							<input class="form-control" placeholder="Tháng" data-ng-model="acc_month">
+						</div>
+						<div class="col-md-1">
+							<input class="form-control" placeholder="Năm" data-ng-model="acc_year">
+						</div>
+						<div class="col-md-1">
+							<div class="input-group-btn">
+						        <button class="btn btn-default" data-ng-click="showTimesheet(acc_month, acc_year)">
+						        	<i class="glyphicon glyphicon-search"></i>
+						        </button>
+						    </div>
+						</div>
+						<div class="col-md-2">
+							<a href="/chamcong/excel?month={{acc_month}}&year={{acc_year}}" class="btn btn-primary">Xuất Excel</a>
+                    		<button class="btn btn-default">In</button>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+		                <table class="table table-condensed table-bordered">
+		                    <thead>
+		                        <tr>
+		                            <th>
+		                            	Mã NV
+		                            </th>
+		                            <th style="width: 15%">Họ Tên ABC</th>
+		                            <th class="text-center">D01</th>
+		                            <th class="text-center">D02</th>
+		                            <th class="text-center">D03</th>
+		                            <th class="text-center">D04</th>
+		                            <th class="text-center">D05</th>
+		                            <th class="text-center">D06</th>
+		                            <th class="text-center">D07</th>
+		                            <th class="text-center">D08</th>
+		                            <th class="text-center">D09</th>
+		                            <th class="text-center">D10</th>
+		                            <th class="text-center">D11</th>
+		                            <th class="text-center">D12</th>
+		                            <th class="text-center">D13</th>
+		                            <th class="text-center">D14</th>
+		                            <th class="text-center">D05</th>
+		                            <th class="text-center">D16</th>
+		                            <th class="text-center">D17</th>
+		                            <th class="text-center">D18</th>
+		                            <th class="text-center">D19</th>
+		                            <th class="text-center">D20</th>
+		                            <th class="text-center">D21</th>
+		                            <th class="text-center">D22</th>
+		                            <th class="text-center">D23</th>
+		                            <th class="text-center">D24</th>
+		                            <th class="text-center">D25</th>
+		                            <th class="text-center">D26</th>
+		                            <th class="text-center">D27</th>
+		                            <th class="text-center">D28</th>
+		                            <th class="text-center">D29</th>
+		                            <th class="text-center">D30</th>
+		                            <th class="text-center">D31</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        <tr data-ng-repeat="ts in timesheet | orderBy:'employee_id' ">
+		                            <td>
+		                            	<button data-uib-popover-template="'myPopoverTemplate.html'" 
+											data-popover-trigger="'outsideClick'" data-popover-title="Xác nhận?" 
+											type="button" class="btn btn-danger btn-xs">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+										<script type="text/ng-template" id="myPopoverTemplate.html">
+          									<button type="button" ng-click="deleteTimesheet(ts)"
+													class="btn btn-danger btn-sm">Xóa
+											</button>
+    									</script>
+		                            	{{ ts.employee_id }}
+		                            </td>
+		                            <td>{{ ts.fullname }}</td>
+		                            <td class="text-center" data-ng-repeat="day in dayRange">
+		                            <!-- editable element -->
+		                                <a href="#" data-editable-select="ts[day]"
+		                                   data-e-ng-options="s.value as s.description for s in statuses"
+		                                   data-onaftersave="updateDb(ts, day)">
+		                                    <span class="label" data-ng-class="showStatus(ts, day) == '<>' ? 'label-default' : 'label-success' ">
+		                                    	{{ showStatus(ts, day) }}
+		                                    </span>
+		                                </a>
+			                        </td>
+			                    </tr>
+			                </tbody>
+			            </table>
+			        </div>
+				</div>
+			</div>
+	    </div>
+	</div>
+</body>
+</html>

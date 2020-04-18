@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Thêm mới</span>
+		<p>Thêm mới Sản phẩm</p>
+	</div>
+	<div class="panel-body ">
+		<form data-enter-to-tab class="form-horizontal">
+			<div class="col-md-offset-8 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="name"> Tên sản phẩm </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="product.name" id="name" required="required"
+							class="form-control input-sm" placeholder="Nhập tên sản phẩm" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="unit"> Đơn vị tính </label>
+					<div class="col-md-5">
+						<select data-ng-model="product.unit" id="district" required="required"
+							class="form-control input-sm">
+							<option value="">Chọn đơn vị tính</option>
+        					<option>Thùng</option>
+        					<option>Chai</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="provider_id"> Mã nhà cung cấp </label>
+					<div class="col-md-5 form-group-sm">
+						<ui-select data-ng-model="provider.selected" data-theme="bootstrap" data-title="Chọn nhà cung cấp">
+						    <ui-select-match data-placeholder="Chọn nhà cung cấp ...">
+						      	{{provider.selected.id + ' --- ' + provider.selected.name}}
+						    </ui-select-match>
+						    <ui-select-choices data-repeat="item in providers | propsFilter: {id: $select.search, name: $select.search} | limitTo: 10">
+						        <span data-ng-bind-html="item.id | highlight: $select.search"></span> 
+						        <small>
+						          	<span data-ng-bind-html="'' + item.name | highlight: $select.search"></span>
+						        </small>
+						    </ui-select-choices>
+					    </ui-select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<button type="button" data-ng-click="submitProductForm()" class="btn btn-primary btn-sm">
+						Thêm mới
+					</button>
+					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
+						Reset Form
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	

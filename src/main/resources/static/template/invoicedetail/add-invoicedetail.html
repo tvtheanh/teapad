@@ -1,0 +1,75 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Thêm mới</span>
+		<p>Thêm mới Chi tiết đơn hàng</p>
+	</div>
+	<div class="panel-body ">
+		<form data-enter-to-tab class="form-horizontal">
+			<div class="col-md-offset-6 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-6 alert alert-success" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="customer_id"> Mã đơn hàng </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="invoice.customer_id" id="customer_id" required="required"
+							class="form-control input-sm" placeholder="Nhập mã khách hàng" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				
+			</div>
+			<div class="row">
+				<div class="form-group col-md-5">
+					<label for="customer_id"> Sản phẩm </label><br/>
+					<div>
+						<ui-select data-ng-model="customer.selected" data-theme="bootstrap" data-title="Chọn khách hàng">
+						    <ui-select-match data-placeholder="Chọn khách hàng trong danh sách dưới đây ...">
+						      	{{customer.selected.id}} --- {{customer.selected.name}}
+						    </ui-select-match>
+						    <ui-select-choices data-repeat="item in customers | propsFilter: {id: $select.search, name: $select.search} | limitTo: 10">
+						        <span data-ng-bind-html="item.id | highlight: $select.search"></span> 
+						        <small>
+						          <span data-ng-bind-html="'' + item.name | highlight: $select.search"></span>
+						        </small>
+						    </ui-select-choices>
+					    </ui-select>
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="saledate"> Số lượng </label><br/>
+					<div>
+						<input type="text" data-ng-model="employee.saledate" id="saledate" required="required"
+							class="form-control input-sm" placeholder="Nhập ngày bán" />
+					</div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="saledate"> Thành tiền </label><br/>
+					<div>
+						<input type="text" data-ng-model="employee.saledate" id="saledate" required="required"
+							class="form-control input-sm" placeholder="Nhập ngày bán" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<button type="button" data-ng-click="submitInvoiceForm()" class="btn btn-primary btn-sm">
+						Thêm mới
+					</button>
+					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
+						Reset Form
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	

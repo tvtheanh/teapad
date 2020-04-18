@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Thay đổi</span>
+		<p>Thay đổi thông tin Nhân viên</p>
+	</div>
+	<div class="panel-body ">
+		<form class="form-horizontal">
+			<div class="col-md-offset-6 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-6 alert alert-success" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="id"> Mã nhân viên </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="employee.id" id="id" required="required"
+							class="form-control input-sm" placeholder="Nhập mã nhân viên" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="fullname"> Tên nhân viên </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="employee.fullname" id="fullname" required="required"
+							class="form-control input-sm" placeholder="Nhập tên nhân viên" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="title"> Chức vụ </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="employee.title" id="title" required="required"
+							class="form-control input-sm" placeholder="Nhập chức vụ" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<button type="button" data-ng-click="submitEmployeeForm()" class="btn btn-primary btn-sm">
+						Cập nhật
+					</button>
+					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
+						Reset Form
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
