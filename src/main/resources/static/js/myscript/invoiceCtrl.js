@@ -164,6 +164,7 @@
 		
 		$scope.alert = undefined;
 		$scope.saleProducts = [];
+		$scope.invoiceTotal = undefined;
 		$scope.customers = undefined;
 		$scope.products = undefined;
 		$scope.prices = undefined;
@@ -192,6 +193,13 @@
 			})
 			.then(function success(response) {
 				$scope.saleProducts = response.data;
+				// compute total sum of invoice
+				var invoiceTotal = 0;
+				for (var i = 0; i < $scope.saleProducts.length; i++){
+			        var sale = $scope.saleProducts[i];
+			        invoiceTotal += sale.amount;
+			    }
+				$scope.invoiceTotal = invoiceTotal;
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Lỗi không lấy được chi tiết đơn hàng" };
 			});

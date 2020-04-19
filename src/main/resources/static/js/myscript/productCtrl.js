@@ -36,13 +36,13 @@
 				url: GLOBAL_URL.productBaseUrl + productId
 			})
 			.then(function success(response) {
-				console.log(response);
 				listProduct();
 				
 			}, function error(response) {
 				console.log(response);
 			});
-		}
+		};
+		
 	}
 	
 	ListProductCtrl.$inject = ["$scope", "$http", "$location", "NgTableParams"];

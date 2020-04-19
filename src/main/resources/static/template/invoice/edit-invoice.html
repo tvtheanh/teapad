@@ -80,7 +80,8 @@
 	                        <td>{{detail.productName}}</td>
 	                        <td class="text-right">{{detail.product_price | currency:"":0}}</td>
 	                        <td class="text-right">{{detail.quantity}}</td>
-	                        <td class="text-right">{{detail.amount | currency:"":0}}</td>
+	                        <td class="text-right">
+	                        	{{detail.amount | currency:"":0}}</td>
 	                        <td title="'Xóa'" >
 								<button data-uib-popover-template="'myPopoverTemplate.html'" 
 									data-popover-trigger="'outsideClick'" data-popover-title="Xác nhận?" 
@@ -107,7 +108,8 @@
 					    	</td>
 					    	<td></td>
 					    	<td><strong>TỔNG TIỀN</strong></td>
-					      	<td class="text-right"><strong>{{invoice.total | currency:"":0}}</strong></td>
+					      	<td class="text-right">
+					      		<strong>{{invoiceTotal | currency:"":0}}</strong></td>
 					      	<td></td>
 					    </tr>
 					</tfoot>
@@ -145,7 +147,7 @@
 					</div>
 					<div class="form-group col-md-2">
 						<div class="col-md-11">
-							<input type="text" data-ng-model="quantity" id="quantity" required="required"
+							<input type="number" data-ng-model="quantity" id="quantity" required="required"
 								class="form-control input-sm" placeholder="Số lượng" />
 						</div>
 					</div>

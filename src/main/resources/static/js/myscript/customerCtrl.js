@@ -10,22 +10,39 @@
 	function ListCustomerCtrl($scope, $http, $location, NgTableParams) {
 		var self = this;
 		
-		$http({
-			method: "GET",
-			url: GLOBAL_URL.customerBaseUrl
-		})
-		.then(function success(response) {
-			self.tableParams = new NgTableParams({}, { dataset: response.data });
-			self.countAll = response.data.length;
-		}, function error(response) {
-			console.log(response);
-		});
+		var listCustomer = function () {
+			$http({
+				method: "GET",
+				url: GLOBAL_URL.customerBaseUrl
+			})
+			.then(function success(response) {
+				self.tableParams = new NgTableParams({}, { dataset: response.data });
+				self.countAll = response.data.length;
+			}, function error(response) {
+				console.log(response);
+			});
+		};
+		listCustomer();
+		
 		
 		// click event for edit
 		$scope.editCustomer = function (customerId) {
 			$location.path("/edit-customer/" + customerId);
 		};
 		
+		// click event for delete
+		$scope.deleteCustomer = function (customerId) {
+			$http({
+				method: "DELETE",
+				url: GLOBAL_URL.customerBaseUrl + customerId
+			})
+			.then(function success(response) {
+				listCustomer();
+				
+			}, function error(response) {
+				console.log(response);
+			});
+		};
 	}
 	
 	ListCustomerCtrl.$inject = ["$scope", "$http", "$location", "NgTableParams"];

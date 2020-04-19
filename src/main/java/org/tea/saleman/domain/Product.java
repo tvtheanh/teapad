@@ -11,6 +11,7 @@ public class Product {
 	private String unit;
 	private int provider_id;
 	private String provider_name;
+	private int weight;   // gram
 	private boolean del;
 	
 }
