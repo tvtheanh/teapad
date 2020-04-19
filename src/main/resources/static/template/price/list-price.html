@@ -24,10 +24,12 @@
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
 				<tr data-ng-repeat="price in $data | orderBy:'-id'">
-					<td title="'Mã'" data-filter="{id: 'number'}">{{price.id}}</td>
+					<td title="'Mã giá'" data-filter="{id: 'number'}">{{price.id}}</td>
 					<td title="'Tên sản phẩm'" data-filter="{product_name: 'text'}" style="width: 30%">{{price.product_name}}</td>
 					<td title="'Loại'" data-filter="{cate: 'text'}">{{price.cate}}</td>
-					<td title="'Giá'" data-filter="{price: 'number'}">{{price.price | currency:"":0}}</td>
+					<td title="'Giá (VND)'" data-filter="{price: 'number'}" class="text-right">
+						{{price.price | currency:"":0}}
+					</td>
 					<td title="'Sửa'" >
 						<button type="button" data-ng-click="editPrice(price.id)"
 							class="btn btn-primary btn-sm">

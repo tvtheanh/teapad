@@ -12,6 +12,7 @@ public class InvoiceDetail {
 	private int invoice_id;
 	private int product_id;
 	private String productName;
+	private BigDecimal productWeight;
 	private BigDecimal product_price;
 	private BigDecimal quantity;
 	private BigDecimal amount;

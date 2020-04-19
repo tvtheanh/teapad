@@ -10,7 +10,7 @@ public interface InvoiceRepository {
 	Invoice findById(int id);
 	int add(Invoice newInvoice);
 	Invoice update(int id, Invoice invoice);
-	void addTotal(int id, BigDecimal amount);
-	void subtractTotal(int id, BigDecimal amount);
+	void addTotalWeight(int id, BigDecimal amount, BigDecimal weight);
+	void subtractTotalWeight(int id, BigDecimal amount, BigDecimal weight);
 	void delete(int id);
 }

@@ -30,8 +30,10 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 
 	@Override
 	public InvoiceDetail add(InvoiceDetail invoiceDetail) {
-		invoiceRepository.addTotal(invoiceDetail.getInvoice_id(), 
-				invoiceDetail.getProduct_price().multiply(invoiceDetail.getQuantity()));
+		invoiceRepository.addTotalWeight(invoiceDetail.getInvoice_id(), 
+				invoiceDetail.getProduct_price().multiply(invoiceDetail.getQuantity()),
+				invoiceDetail.getProductWeight().multiply(invoiceDetail.getQuantity())
+			);
 		invoiceDetailRepository.add(invoiceDetail);
 		return invoiceDetail;
 	}
@@ -44,7 +46,10 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	@Override
 	public void delete(int id) {
 		InvoiceDetail invoiceDetail = invoiceDetailRepository.findById(id);
-		invoiceRepository.subtractTotal(invoiceDetail.getInvoice_id(), invoiceDetail.getAmount());
+		invoiceRepository.subtractTotalWeight(invoiceDetail.getInvoice_id(), 
+				invoiceDetail.getAmount(),
+				invoiceDetail.getProductWeight().multiply(invoiceDetail.getQuantity())
+			);
 		invoiceDetailRepository.delete(id);
 	}
 	

@@ -24,7 +24,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	@Override
 	public List<Invoice> listAll() {
 		final String SELECT_ALL_INVOICES = 
-				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total "
+				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total, i.weight "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
 				+ "WHERE i.del=false";
 		return jdbcTemplate.query(SELECT_ALL_INVOICES, new InvoiceMapper());
@@ -41,6 +41,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 			invoice.setCustomerAddress(rs.getString("address"));
 			invoice.setSaledate(rs.getObject("saledate", LocalDate.class));
 			invoice.setTotal(rs.getBigDecimal("total"));
+			invoice.setWeight(rs.getBigDecimal("weight"));
 			return invoice;
 		}
 		
@@ -49,7 +50,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	@Override
 	public Invoice findById(int id) {
 		final String SELECT_INVOICE_BY_ID = 
-				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total "
+				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total, i.weight "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
 				+ "WHERE i.id=? AND i.del=false";
 		return jdbcTemplate.queryForObject(SELECT_INVOICE_BY_ID, new InvoiceMapper(), id);
@@ -67,14 +68,13 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 
 	@Override
 	public Invoice update(int id, Invoice invoice) {
-		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, saledate=?, delivered=?, paid=?, total=? "
+		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, saledate=?, delivered=?, paid=?  "
 				+ " WHERE id=?";
 		jdbcTemplate.update(UPDATE_INVOICE,
 				invoice.getCustomer_id(),
 				invoice.getSaledate(),
 				invoice.getDelivered(),
 				invoice.getPaid(),
-				invoice.getTotal(),
 				id);
 		return invoice;
 	}
@@ -86,16 +86,16 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	}
 
 	@Override
-	public void addTotal(int id, BigDecimal amount) {
-		final String ADD_TOTAL = "UPDATE invoice SET total=total+? WHERE id=?";
-		jdbcTemplate.update(ADD_TOTAL, amount, id);
+	public void addTotalWeight(int id, BigDecimal amount, BigDecimal weight) {
+		final String ADD_TOTAL = "UPDATE invoice SET total=total+?, weight=weight+? WHERE id=?";
+		jdbcTemplate.update(ADD_TOTAL, amount, weight, id);
 		
 	}
 	
 	@Override
-	public void subtractTotal(int id, BigDecimal amount) {
-		final String SUBTRACT_TOTAL = "UPDATE invoice SET total=total-? WHERE id=?";
-		jdbcTemplate.update(SUBTRACT_TOTAL, amount, id);
+	public void subtractTotalWeight(int id, BigDecimal amount, BigDecimal weight) {
+		final String SUBTRACT_TOTAL = "UPDATE invoice SET total=total-?, weight=weight-? WHERE id=?";
+		jdbcTemplate.update(SUBTRACT_TOTAL, amount, weight, id);
 		
 	}
 

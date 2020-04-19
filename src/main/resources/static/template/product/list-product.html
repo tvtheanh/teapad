@@ -28,7 +28,7 @@
 					<td title="'Tên sản phẩm'" data-filter="{name: 'text'}" style="width: 30%">{{product.name}}</td>
 					<td title="'Đơn vị'" data-filter="{unit: 'text'}">{{product.unit}}</td>
 					<td title="'Nhà cung cấp'" data-filter="{provider_name: 'text'}">{{product.provider_name}}</td>
-					<td title="'Giá'" data-filter="{price: 'number'}">{{product.price | currency:"":0}}</td>
+					<td title="'Trọng lượng (Gram)'" data-filter="{weight: 'number'}">{{product.weight | currency:"":0}}</td>
 					<td title="'Sửa'" >
 						<button type="button" data-ng-click="editProduct(product.id)"
 							class="btn btn-primary btn-sm">

@@ -13,17 +13,14 @@ import org.tea.saleman.domain.InvoiceDetail;
 @Repository
 public class JdbcInvoiceDetailRepository implements InvoiceDetailRepository {
 	
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	@Autowired
-	public JdbcInvoiceDetailRepository(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
 
 	@Override
 	public List<InvoiceDetail> findByInvoiceId(int invoiceId) {
 		final String SELECT_INVOICE_DETAIL_BY_INVOICE_ID = 
-				"SELECT i.id, i.invoice_id, i.product_id, p.name, i.product_price, i.quantity, i.amount "
+				"SELECT i.id, i.invoice_id, i.product_id, p.name, p.weight, i.product_price, i.quantity, i.amount "
 				+ "FROM invoicedetail i JOIN product p ON (i.product_id=p.id) "
 				+ "WHERE i.invoice_id=? AND i.del=false";
 		return jdbcTemplate.query(SELECT_INVOICE_DETAIL_BY_INVOICE_ID, new InvoiceDetailMapper(), invoiceId);
@@ -38,6 +35,7 @@ public class JdbcInvoiceDetailRepository implements InvoiceDetailRepository {
 			invoiceDetail.setInvoice_id(rs.getInt("invoice_id"));
 			invoiceDetail.setProduct_id(rs.getInt("product_id"));
 			invoiceDetail.setProductName(rs.getString("name"));
+			invoiceDetail.setProductWeight(rs.getBigDecimal("weight"));
 			invoiceDetail.setProduct_price(rs.getBigDecimal("product_price"));
 			invoiceDetail.setQuantity(rs.getBigDecimal("quantity"));
 			invoiceDetail.setAmount(rs.getBigDecimal("amount"));
@@ -49,8 +47,9 @@ public class JdbcInvoiceDetailRepository implements InvoiceDetailRepository {
 	@Override
 	public InvoiceDetail findById(int id) {
 		final String SELECT_INVOICE_DETAIL_BY_ID =
-				"SELECT id, invoice_id, product_id, '' AS name, product_price, quantity, amount "
-				+ " FROM invoicedetail WHERE id=? AND del=false";
+				"SELECT i.id, i.invoice_id, i.product_id, p.name, p.weight, i.product_price, i.quantity, i.amount "
+				+ "FROM invoicedetail i JOIN product p ON (i.product_id=p.id) "
+				+ "WHERE i.id=? AND i.del=false";
 		return jdbcTemplate.queryForObject(SELECT_INVOICE_DETAIL_BY_ID, new InvoiceDetailMapper(), id);
 	}
 

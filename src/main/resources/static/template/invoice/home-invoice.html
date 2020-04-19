@@ -15,25 +15,6 @@
 				</li>
 			</ul>
 		</div>
-		<div data-ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
-			<script type="text/ng-template" id="myModalContent.html">
-        		<div class="modal-header">
-            		<h3 class="modal-title" id="modal-title">Báo cáo</h3>
-        		</div>
-        		<div class="modal-body" id="modal-body">
-            		<div>
-						<object data="/pdf/ccdc" type="application/pdf" width="98%" height="400">
-							<a href="/pdf/ccdc">test.pdf</a>
-						</object>
-					</div>
-        		</div>
-        		<div class="modal-footer">
-            		<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-        		</div>
-    		</script>
-    		<button type="button" class="btn btn-default pull-right" 
-    			data-ng-click="$ctrl.open('lg')">Open Report!</button>
-		</div>
 		
 	</div>
 	

@@ -98,7 +98,7 @@
 	                </tbody>
 	                <tfoot>
 					    <tr>
-					    	<td></td>
+					    	<td>{{ invoice.weight  | currency:"":0}} Grams</td>
 					    	<td>
 					    		<div data-ng-controller="ModalDemoCtrl as pc" class="modal-demo">
 							        <button type="button" class="btn btn-primary" data-ng-click="pc.open('lg')">
@@ -109,7 +109,7 @@
 					    	<td></td>
 					    	<td><strong>TỔNG TIỀN</strong></td>
 					      	<td class="text-right">
-					      		<strong>{{invoiceTotal | currency:"":0}}</strong></td>
+					      		<strong>{{invoice.total | currency:"":0}}</strong></td>
 					      	<td></td>
 					    </tr>
 					</tfoot>
@@ -161,6 +161,7 @@
 								data-ng-click="addProductToList({
 									'invoice_id': invoice_id,
 									'product_id': product.selected.id, 
+									'productWeight': product.selected.weight,
 									'product_price': price, 
 									'quantity': quantity})" >
 							Thêm

@@ -17,6 +17,7 @@ public class Invoice {
 	private short delivered;
 	private short paid;
 	private BigDecimal total;
+	private BigDecimal weight;
 	private boolean del;
 	
 }

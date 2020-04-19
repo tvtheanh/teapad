@@ -24,7 +24,8 @@
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
 				<tr data-ng-repeat="invoice in $data | orderBy:'-saledate'">
-					<td title="'Mã'" data-filter="{id: 'number'}">{{invoice.id}}</td>
+					<td title="'Mã đơn hàng'" data-filter="{id: 'number'}">{{invoice.id | currency:"":0}}</td>
+					<td title="'Trọng lượng (Gram)'" data-filter="{weight: 'number'}">{{invoice.weight}}</td>
 					<td title="'Mã khách hàng'" data-filter="{customer_id: 'text'}">{{invoice.customer_id}}</td>
 					<td title="'Tên khách hàng'" data-filter="{customerName: 'text'}">{{invoice.customerName}}</td>
 					<td title="'Địa chỉ'" data-filter="{customerAddress: 'text'}">{{invoice.customerAddress}}</td>

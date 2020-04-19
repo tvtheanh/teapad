@@ -173,7 +173,7 @@
 		
 		
 		// get the invoice by id and its details
-		$scope.loadInvoice = function () {
+		var loadInvoice = function () {
 			$http({
 				method: "GET",
 				url: GLOBAL_URL.invoiceBaseUrl + $scope.invoice_id
@@ -184,7 +184,7 @@
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Không tìm được đơn hàng" };
 			});
 		};
-		$scope.loadInvoice();
+		loadInvoice();
 		
 		$scope.showDetail = function () {
 			$http({
@@ -193,13 +193,15 @@
 			})
 			.then(function success(response) {
 				$scope.saleProducts = response.data;
-				// compute total sum of invoice
+				loadInvoice();
+				/* compute total sum of invoice
 				var invoiceTotal = 0;
 				for (var i = 0; i < $scope.saleProducts.length; i++){
 			        var sale = $scope.saleProducts[i];
 			        invoiceTotal += sale.amount;
 			    }
 				$scope.invoiceTotal = invoiceTotal;
+				*/
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Lỗi không lấy được chi tiết đơn hàng" };
 			});
@@ -288,7 +290,7 @@
 				data: $scope.invoice
 			})
 			.then(function success(response) {
-				$scope.loadInvoice();     
+				loadInvoice();     
 				$scope.customer = {};    // reset the dropdown control
 				$scope.alert = { message: "Cập nhật thành công!" };
 			}, function error(response) {
