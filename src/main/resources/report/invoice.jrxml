@@ -18,6 +18,7 @@
 	</parameter>
 	<parameter name="customerName" class="java.lang.String"/>
 	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="weight" class="java.math.BigDecimal"/>
 	<queryString language="SQL">
 		<![CDATA[select i.invoice_id, p.name, i.product_price, i.quantity, i.amount 
 from invoicedetail i JOIN product p ON (i.product_id=p.id)
@@ -51,18 +52,18 @@ where i.invoice_id=$P{invoice_id} and i.del=false]]>
 	</background>
 	<pageHeader>
 		<band height="69" splitType="Stretch">
-			<textField>
-				<reportElement x="500" y="43" width="58" height="20" uuid="504069f2-fd13-447a-9f34-96c1dfadf1e6">
+			<textField pattern="#,###.###;(#,###.###-)">
+				<reportElement x="473" y="43" width="67" height="20" uuid="504069f2-fd13-447a-9f34-96c1dfadf1e6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box padding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{invoice_id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{weight}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="33" width="260" height="20" uuid="02df5fc1-c628-4e8b-b50f-ccb5e4cff546">
+				<reportElement x="59" y="33" width="197" height="20" uuid="02df5fc1-c628-4e8b-b50f-ccb5e4cff546">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box padding="2"/>
@@ -72,7 +73,7 @@ where i.invoice_id=$P{invoice_id} and i.del=false]]>
 				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="49" width="340" height="20" uuid="b23ce347-7964-4231-b727-bed5987ad05c">
+				<reportElement x="59" y="49" width="351" height="20" uuid="b23ce347-7964-4231-b727-bed5987ad05c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box padding="2"/>
@@ -82,25 +83,25 @@ where i.invoice_id=$P{invoice_id} and i.del=false]]>
 				<textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="440" y="43" width="58" height="20" uuid="d8765418-f6c5-43db-ad1c-30bf9a5fd4aa">
+				<reportElement x="415" y="43" width="58" height="20" uuid="d8765418-f6c5-43db-ad1c-30bf9a5fd4aa">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<text><![CDATA[Mã đơn hàng:]]></text>
+				<text><![CDATA[Trọng lượng:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="33" width="90" height="20" uuid="b8e91e94-354b-49cb-9118-8385d4ae12a2">
+				<reportElement x="0" y="33" width="59" height="20" uuid="b8e91e94-354b-49cb-9118-8385d4ae12a2">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<text><![CDATA[Tên khách hàng:]]></text>
+				<text><![CDATA[Khách hàng:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="49" width="80" height="20" uuid="54c61716-b439-4049-88c1-fe490a156a63">
+				<reportElement x="0" y="49" width="59" height="20" uuid="54c61716-b439-4049-88c1-fe490a156a63">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -123,6 +124,34 @@ where i.invoice_id=$P{invoice_id} and i.del=false]]>
 					<font fontName="DejaVu Sans" size="7" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[ĐT: 0988.010306]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="33" width="58" height="20" uuid="e5f10a15-2ede-461b-a92e-cb84058d400b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[Mã đơn hàng:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="349" y="33" width="50" height="20" uuid="9d0e95e2-8573-423a-af86-b301379aa5a4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="543" y="43" width="12" height="20" uuid="b7d2ff0d-f4f0-4d92-9e13-e1f602f66b51">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[kg]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -296,7 +325,7 @@ where i.invoice_id=$P{invoice_id} and i.del=false]]>
 		<band height="16" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="64">
+		<band height="53">
 			<staticText>
 				<reportElement x="392" y="1" width="64" height="18" uuid="fff83c43-45b1-46e4-8fb1-ff726fa21eed">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>

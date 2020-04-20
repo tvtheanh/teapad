@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="alert alert-info">
-		<span class="lead">Cập nhật đơn hàng</span> 
+		<span class="lead">Cập nhật đơn hàng</span> &nbsp; &nbsp;
 		<span class="label label-primary">{{invoice_id}}</span>
 	</div>
 	<div class="panel-body">
@@ -51,7 +51,7 @@
 				    <div>
 					    <div class="form-actions">
 							<button type="button" data-ng-click="submitInvoiceForm()" class="btn btn-primary btn-sm">
-								Lưu
+								<span class="glyphicon glyphicon-save"></span> Lưu
 							</button>
 							<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
 								Hủy bỏ
@@ -62,7 +62,12 @@
 			</div>
 		  	<div class="col-md-1"></div>
 			<div class="col-md-8">
-				<h4>Chi tiết Đơn hàng</h4>
+				<div class="col-sm-6">
+					<h4>Chi tiết Đơn hàng</h4>
+				</div>
+				<div class="col-sm-6"  style="margin-bottom: 5px">
+					<span class="label label-warning">{{invoice.weight | currency:"":0}} Grams</span>
+				</div>
 			  	<table class="table table-hover table-condensed">
 	                <thead>
 	                    <tr>
@@ -98,7 +103,7 @@
 	                </tbody>
 	                <tfoot>
 					    <tr>
-					    	<td>{{ invoice.weight  | currency:"":0}} Grams</td>
+					    	<td></td>
 					    	<td>
 					    		<div data-ng-controller="ModalDemoCtrl as pc" class="modal-demo">
 							        <button type="button" class="btn btn-primary" data-ng-click="pc.open('lg')">
@@ -164,7 +169,7 @@
 									'productWeight': product.selected.weight,
 									'product_price': price, 
 									'quantity': quantity})" >
-							Thêm
+							<span class="glyphicon glyphicon-plus-sign"></span> Thêm
 						</button>
 					</div>
 				</div>

@@ -24,8 +24,9 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	@Override
 	public List<Invoice> listAll() {
 		final String SELECT_ALL_INVOICES = 
-				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total, i.weight "
-				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
+				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address,  "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight  "
+				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id)  "
 				+ "WHERE i.del=false";
 		return jdbcTemplate.query(SELECT_ALL_INVOICES, new InvoiceMapper());
 	}

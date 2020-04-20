@@ -3,6 +3,7 @@ package org.tea.saleman.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -105,6 +106,7 @@ public class HomeController {
 			parameters.put("invoice_id", id);
 			parameters.put("customerName", invoice.getCustomerName());
 			parameters.put("customerAddress", invoice.getCustomerAddress());
+			parameters.put("weight", invoice.getWeight().divide(BigDecimal.valueOf(1000)));   // weight kg
 			parameters.put("bangchu", ChuyenTienRaChu.ChuyenSangChu(String.valueOf(invoice.getTotal())));
 			bytes = JasperRunManager.runReportToPdf(jasperFile.getPath(), parameters, dataSource.getConnection());
 		} catch (JRException | SQLException | FileNotFoundException e) {
