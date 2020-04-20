@@ -25,8 +25,9 @@
 				
 				<tr data-ng-repeat="price in $data | orderBy:'-id'">
 					<td title="'Mã giá'" data-filter="{id: 'number'}">{{price.id}}</td>
-					<td title="'Tên sản phẩm'" data-filter="{product_name: 'text'}" style="width: 30%">{{price.product_name}}</td>
-					<td title="'Loại'" data-filter="{cate: 'text'}">{{price.cate}}</td>
+					<td title="'Tên sản phẩm'" data-filter="{productName: 'text'}" style="width: 30%">{{price.productName}}</td>
+					<td title="'Đơn vị tính'" data-filter="{productUnit: 'text'}" style="width: 30%">{{price.productUnit}}</td>
+					<td title="'Loại giá'" data-filter="{cate: 'text'}">{{price.cate}}</td>
 					<td title="'Giá (VND)'" data-filter="{price: 'number'}" class="text-right">
 						{{price.price | currency:"":0}}
 					</td>

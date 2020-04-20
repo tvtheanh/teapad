@@ -109,16 +109,16 @@
 		
 		$scope.price = undefined;    // model for form submit
 		$scope.alert = undefined;
-		$scope.provider = {};			// selected provider
-		$scope.providers = undefined;
+		$scope.product = {};			// selected product
+		$scope.products = undefined;
 		
 		// get the provider list for dropdown-control
 		$http({
 			method: "GET",
-			url: GLOBAL_URL.providerBaseUrl
+			url: GLOBAL_URL.productBaseUrl
 		})
 		.then(function success(response) {
-			$scope.providers = response.data;
+			$scope.products = response.data;
 		}, function error(response) {
 			console.log(response);
 		});
@@ -134,9 +134,9 @@
 		.then(function success(response) {
 			$scope.price = response.data;
 			// choose the right selected provider in dropdown-control
-			for (let i=0; i<$scope.providers.length; i++) {
-				if ($scope.price.provider_id == $scope.providers[i].id) {
-					$scope.provider.selected = $scope.providers[i];
+			for (let i=0; i<$scope.products.length; i++) {
+				if ($scope.price.product_id == $scope.products[i].id) {
+					$scope.product.selected = $scope.products[i];
 					break;
 				}
 			}
@@ -145,7 +145,7 @@
 		});
 		
 		$scope.submitPriceForm = function () {
-			$scope.price.provider_id = $scope.provider.selected.id;
+			$scope.price.product_id = $scope.product.selected.id;
 			
 			$http({
 				method: "PUT",

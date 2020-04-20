@@ -19,7 +19,7 @@ public class JdbcPriceRepository implements PriceRepository {
 	@Override
 	public List<Price> listAll() {
 		final String SELECT_PRICE = 
-				"select e.id, e.product_id, p.name, e.cate, e.price   " + 
+				"select e.id, e.product_id, p.name, p.unit, e.cate, e.price   " + 
 				"from price e   " + 
 				"	join product p on (p.id=e.product_id)   " + 
 				"where e.del=false";
@@ -33,7 +33,8 @@ public class JdbcPriceRepository implements PriceRepository {
 			Price price = new Price();
 			price.setId(rs.getInt("id"));
 			price.setProduct_id(rs.getInt("product_id"));
-			price.setProduct_name(rs.getString("name"));
+			price.setProductName(rs.getString("name"));
+			price.setProductUnit(rs.getString("unit"));
 			price.setCate(rs.getString("cate"));
 			price.setPrice(rs.getBigDecimal("price"));
 			return price;
@@ -44,7 +45,7 @@ public class JdbcPriceRepository implements PriceRepository {
 	@Override
 	public Price findById(int id) {
 		final String SELECT_PRICE_BY_ID = 
-				"select e.id, e.product_id, p.name, e.cate, e.price   " + 
+				"select e.id, e.product_id, p.name, p.unit, e.cate, e.price   " + 
 				"from price e   " + 
 				"	join product p on (p.id=e.product_id)   " + 
 				"where e.id=? AND e.del=false";
@@ -55,7 +56,7 @@ public class JdbcPriceRepository implements PriceRepository {
 	@Override
 	public List<Price> findByProduct(int productId) {
 		final String SELECT_PRICE_BY_PRODUCT = 
-				"select e.id, e.product_id, p.name, e.cate, e.price   " + 
+				"select e.id, e.product_id, p.name, p.unit, e.cate, e.price   " + 
 				"from price e   " + 
 				"	join product p on (p.id=e.product_id)   " + 
 				"where e.product_id=? AND e.del=false";

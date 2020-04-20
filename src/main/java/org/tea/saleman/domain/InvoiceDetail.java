@@ -11,7 +11,9 @@ public class InvoiceDetail {
 	private int id;
 	private int invoice_id;
 	private int product_id;
+	private int price_id;
 	private String productName;
+	private String productUnit;
 	private BigDecimal productWeight;
 	private BigDecimal product_price;
 	private BigDecimal quantity;

@@ -71,8 +71,9 @@
 			  	<table class="table table-hover table-condensed">
 	                <thead>
 	                    <tr>
-	                        <th>Mã sản phẩm</th>
+	                    	<th>STT</th>
 	                        <th>Tên sản phẩm</th>
+	                        <th>Đơn vị</th>
 	                        <th class="text-right">Đơn giá</th>
 	                        <th class="text-right">Số lượng</th>
 	                        <th class="text-right">Thành tiền</th>
@@ -81,8 +82,9 @@
 	                </thead>
 	                <tbody>
 	                    <tr data-ng-repeat="detail in saleProducts">
-	                        <td>{{detail.product_id}}</td>
+	                    	<td>{{$index + 1}}</td>
 	                        <td>{{detail.productName}}</td>
+	                        <td>{{detail.productUnit}}</td>
 	                        <td class="text-right">{{detail.product_price | currency:"":0}}</td>
 	                        <td class="text-right">{{detail.quantity}}</td>
 	                        <td class="text-right">
@@ -104,6 +106,7 @@
 	                <tfoot>
 					    <tr>
 					    	<td></td>
+					    	<td></td>
 					    	<td>
 					    		<div data-ng-controller="ModalDemoCtrl as pc" class="modal-demo">
 							        <button type="button" class="btn btn-primary" data-ng-click="pc.open('lg')">
@@ -114,7 +117,8 @@
 					    	<td></td>
 					    	<td><strong>TỔNG TIỀN</strong></td>
 					      	<td class="text-right">
-					      		<strong>{{invoice.total | currency:"":0}}</strong></td>
+					      		<strong>{{invoice.total | currency:"":0}}</strong>
+					      	</td>
 					      	<td></td>
 					    </tr>
 					</tfoot>
@@ -140,14 +144,18 @@
 						    </ui-select>
 						</div>
 					</div>
-					<div class="form-group col-md-3">
+					<div class="col-md-3 form-group-sm">
 						<div class="col-md-12">
-							<select data-ng-model="price" class="form-control input-sm">
-								<option disabled value="">Chọn giá</option>
-								<option data-ng-repeat="option in prices" value="{{option.price}}">
-									{{option.cate + ': '}} {{option.price | currency:'':0}}
-								</option>
-							</select>
+							<ui-select data-ng-model="selectPrice.selected"
+										data-theme="bootstrap" data-title="Chọn giá">
+							    <ui-select-match data-placeholder="Chọn giá ...">
+							      	{{selectPrice.selected.cate}}: {{selectPrice.selected.price | currency:'':0}}
+							    </ui-select-match>
+							    <ui-select-choices data-repeat="item in prices | propsFilter: {cate: $select.search} | limitTo: 10">
+							        <span data-ng-bind-html="item.cate + ':' | highlight: $select.search"></span> 
+							         {{item.price | currency:'':0}}
+							    </ui-select-choices>
+						    </ui-select>
 						</div>
 					</div>
 					<div class="form-group col-md-2">
@@ -158,7 +166,7 @@
 					</div>
 					<div class="form-group col-md-2">
 						<div class="col-md-11">
-							<label>{{price*quantity | currency:"":0}}</label>
+							<label>{{selectPrice.selected.price * quantity | currency:"":0}}</label>
 						</div>
 					</div>
 					<div class="form-group col-md-1">
@@ -166,8 +174,9 @@
 								data-ng-click="addProductToList({
 									'invoice_id': invoice_id,
 									'product_id': product.selected.id, 
+									'price_id': selectPrice.selected.id,
 									'productWeight': product.selected.weight,
-									'product_price': price, 
+									'product_price': selectPrice.selected.price, 
 									'quantity': quantity})" >
 							<span class="glyphicon glyphicon-plus-sign"></span> Thêm
 						</button>

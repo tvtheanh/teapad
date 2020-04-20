@@ -51,7 +51,8 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	@Override
 	public Invoice findById(int id) {
 		final String SELECT_INVOICE_BY_ID = 
-				"SELECT i.id, i.customer_id, c.name, c.address, i.saledate, i.delivered, i.paid, i.total, i.weight "
+				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
 				+ "WHERE i.id=? AND i.del=false";
 		return jdbcTemplate.queryForObject(SELECT_INVOICE_BY_ID, new InvoiceMapper(), id);

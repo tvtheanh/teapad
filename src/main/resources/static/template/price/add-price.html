@@ -10,7 +10,7 @@
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.errorMessage}}
 			</div>
-			<div class="col-md-offset-8 col-md-4 alert alert-success" role="alert" style="position:fixed;"
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed;"
 				data-uib-alert data-ng-if="alert.message"
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.message}}
@@ -49,10 +49,13 @@
 			</div>
 			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-2" for="price"> Giá </label>
-					<div class="col-md-5">
+					<label class="col-md-2" for="price"> Giá (VND) </label>
+					<div class="col-md-3">
 						<input type="number" data-ng-model="price.price" id="price" required="required"
 							class="form-control input-sm" placeholder="Nhập giá" />
+					</div>
+					<div class="col-md-2">
+						<span class="label label-success label-large" style="font-size:17px;">{{price.price | currency:"":0}} VND</span>
 					</div>
 				</div>
 			</div>

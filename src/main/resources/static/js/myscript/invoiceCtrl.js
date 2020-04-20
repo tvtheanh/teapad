@@ -170,6 +170,7 @@
 		$scope.prices = undefined;
 		$scope.customer = {};        // selected customer
 		$scope.product = {};         // selected product
+		$scope.selectPrice = {};         // selected price
 		
 		
 		// get the invoice by id and its details
@@ -194,14 +195,7 @@
 			.then(function success(response) {
 				$scope.saleProducts = response.data;
 				loadInvoice();
-				/* compute total sum of invoice
-				var invoiceTotal = 0;
-				for (var i = 0; i < $scope.saleProducts.length; i++){
-			        var sale = $scope.saleProducts[i];
-			        invoiceTotal += sale.amount;
-			    }
-				$scope.invoiceTotal = invoiceTotal;
-				*/
+				
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Lỗi không lấy được chi tiết đơn hàng" };
 			});
@@ -308,7 +302,7 @@
 			.then(function success(response) {
 				$scope.showDetail();
 				$scope.product.selected = undefined;
-				$scope.price = undefined;
+				$scope.selectPrice.selected = undefined;
 				$scope.quantity = undefined;
 				$scope.alert = { message: "Thêm chi tiết đơn hàng thành công!" };
 			}, function error(response) {
