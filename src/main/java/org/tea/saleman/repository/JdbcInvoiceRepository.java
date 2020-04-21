@@ -25,7 +25,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	public List<Invoice> listAll() {
 		final String SELECT_ALL_INVOICES = 
 				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address,  "
-				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight  "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt  "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id)  "
 				+ "WHERE i.del=false";
 		return jdbcTemplate.query(SELECT_ALL_INVOICES, new InvoiceMapper());
@@ -43,6 +43,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 			invoice.setSaledate(rs.getObject("saledate", LocalDate.class));
 			invoice.setTotal(rs.getBigDecimal("total"));
 			invoice.setWeight(rs.getBigDecimal("weight"));
+			invoice.setDebt(rs.getBigDecimal("debt"));
 			return invoice;
 		}
 		
@@ -52,7 +53,7 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	public Invoice findById(int id) {
 		final String SELECT_INVOICE_BY_ID = 
 				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, "
-				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
 				+ "WHERE i.id=? AND i.del=false";
 		return jdbcTemplate.queryForObject(SELECT_INVOICE_BY_ID, new InvoiceMapper(), id);
@@ -70,13 +71,14 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 
 	@Override
 	public Invoice update(int id, Invoice invoice) {
-		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, saledate=?, delivered=?, paid=?  "
+		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, saledate=?, delivered=?, paid=?, debt=?  "
 				+ " WHERE id=?";
 		jdbcTemplate.update(UPDATE_INVOICE,
 				invoice.getCustomer_id(),
 				invoice.getSaledate(),
 				invoice.getDelivered(),
 				invoice.getPaid(),
+				invoice.getDebt(),
 				id);
 		return invoice;
 	}

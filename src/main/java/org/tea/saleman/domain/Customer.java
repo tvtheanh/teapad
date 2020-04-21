@@ -1,5 +1,7 @@
 package org.tea.saleman.domain;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,7 @@ public class Customer {
 	private String province;
 	private String contact;
 	private String phone;
+	private BigDecimal debt;
 	private boolean del;
 	
 }

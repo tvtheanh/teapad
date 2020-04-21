@@ -23,15 +23,18 @@
 			<table class="table table-bordered table-hover table-condensed"
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
-				<tr data-ng-repeat="invoice in $data | orderBy:'-saledate'">
+				<tr data-ng-repeat="invoice in $data | orderBy: '-saledate' ">
 					<td title="'Mã đơn hàng'" data-filter="{id: 'number'}">{{invoice.id}}</td>
-					<td title="'Trọng lượng (Gram)'" data-filter="{weight: 'number'}">{{invoice.weight | currency:"":0}}</td>
+					<td title="'Trọng lượng (Gram)'" data-filter="{weight: 'number'}" class="text-right">{{invoice.weight | currency:"":0}}</td>
 					<td title="'Mã khách hàng'" data-filter="{customer_id: 'text'}">{{invoice.customer_id}}</td>
 					<td title="'Tên khách hàng'" data-filter="{customerName: 'text'}">{{invoice.customerName}}</td>
 					<td title="'Địa chỉ'" data-filter="{customerAddress: 'text'}" style="width: 30%">{{invoice.customerAddress}}</td>
 					<td title="'Ngày bán'" data-filter="{saledate: 'text'}">{{invoice.saledate | date:'dd/MM/yyyy'}}</td>
 					<td title="'Tổng tiền'" data-filter="{total: 'text'}" class="text-right">
-						{{invoice.total | currency:"":0}}
+						<strong>{{invoice.total | currency:"":0}}</strong>
+					</td>
+					<td title="'Công nợ'" data-filter="{total: 'text'}" class="text-right">
+						<i>{{invoice.debt | currency:"":0}}</i>
 					</td>
 					<td title="'Sửa'" >
 						<button type="button" data-ng-click="editInvoice(invoice.id)"

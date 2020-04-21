@@ -1,5 +1,6 @@
 package org.tea.saleman.repository;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,8 +20,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
 	@Override
 	public List<Customer> listAll() {
-		final String SELECT_ALL_CUSTOMERS = "SELECT id, name, address, district, province, contact, phone  "
-				+ "FROM customer WHERE del=false";
+		final String SELECT_ALL_CUSTOMERS = 
+				"SELECT id, name, address, district, province, contact, phone, debt  " + 
+				"FROM customer  " + 
+				"WHERE del=false";
 		return jdbcTemplate.query(SELECT_ALL_CUSTOMERS, 
 				new CustomerMapper());
 		
@@ -38,6 +41,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
 			customer.setProvince(rs.getString("province"));
 			customer.setContact(rs.getString("contact"));
 			customer.setPhone(rs.getString("phone"));
+			customer.setDebt(rs.getBigDecimal("debt"));
 			return customer;
 		}
 		
@@ -46,8 +50,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	
 	@Override
 	public Customer findById(int id) {
-		final String SELECT_CUSTOMER_BY_ID = "SELECT id, name, address, district, province, contact, phone  "
-				+ "FROM customer WHERE id=? AND del=false";
+		final String SELECT_CUSTOMER_BY_ID = 
+				"SELECT id, name, address, district, province, contact, phone, debt  " + 
+				"FROM customer   " + 
+				"WHERE id=? AND del=false";
 		return jdbcTemplate.queryForObject(SELECT_CUSTOMER_BY_ID,
 				new CustomerMapper(), id);
 	}
@@ -56,8 +62,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	@Override
 	public Customer add(Customer newCustomer) {
 		final String INSERT_NEW_CUSTOMER = 
-				"INSERT INTO customer (name, address, district, province, contact, phone) "
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+				"INSERT INTO customer (name, address, district, province, contact, phone) " + 
+				"VALUES (?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(INSERT_NEW_CUSTOMER,
 				newCustomer.getName(),
 				newCustomer.getAddress(),
@@ -72,7 +78,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	@Override
 	public Customer update(int id, Customer updatedCustomer) {
 		final String UPDATE_CUSTOMER = 
-				"UPDATE customer SET name=?, address=?, district=?, province=?, contact=?, phone=?   " +
+				"UPDATE customer " + 
+				"SET name=?, address=?, district=?, province=?, contact=?, phone=?   " +
 				"WHERE id=?";
 		jdbcTemplate.update(UPDATE_CUSTOMER,
 				updatedCustomer.getName(),
@@ -91,6 +98,16 @@ public class JdbcCustomerRepository implements CustomerRepository {
 		final String DELETE_CUSTOMER =
 				"UPDATE customer SET del=true WHERE id=? ";
 		jdbcTemplate.update(DELETE_CUSTOMER, id);
+	}
+
+
+	@Override
+	public void updateDebt(int id, BigDecimal oldInvoiceDebt, BigDecimal newInvoiceDebt) {
+		final String UPDATE_CUSTOMER_DEBT =
+				"UPDATE customer   " + 
+				"SET debt = debt - ? + ?  " + 
+				"WHERE id=? AND del=false";
+		jdbcTemplate.update(UPDATE_CUSTOMER_DEBT, oldInvoiceDebt, newInvoiceDebt, id);
 	}
 
 	

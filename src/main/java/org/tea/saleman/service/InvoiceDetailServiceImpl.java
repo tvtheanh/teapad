@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tea.saleman.domain.InvoiceDetail;
 import org.tea.saleman.repository.InvoiceDetailRepository;
 import org.tea.saleman.repository.InvoiceRepository;
@@ -29,6 +30,7 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	}
 
 	@Override
+	@Transactional
 	public InvoiceDetail add(InvoiceDetail invoiceDetail) {
 		invoiceRepository.addTotalWeight(invoiceDetail.getInvoice_id(), 
 				invoiceDetail.getProduct_price().multiply(invoiceDetail.getQuantity()),
@@ -44,6 +46,7 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(int id) {
 		InvoiceDetail invoiceDetail = invoiceDetailRepository.findById(id);
 		invoiceRepository.subtractTotalWeight(invoiceDetail.getInvoice_id(), 

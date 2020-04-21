@@ -181,12 +181,14 @@
 			})
 			.then(function success(response) {
 				$scope.invoice = response.data;
+				$scope.currentDebt = response.data.debt;
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Không tìm được đơn hàng" };
 			});
 		};
 		loadInvoice();
 		
+		// get all invoice-details of this invoice
 		$scope.showDetail = function () {
 			$http({
 				method: "GET",
@@ -276,7 +278,12 @@
 		
 		// click event for update invoice information
 		$scope.submitInvoiceForm = function () {
-			$scope.invoice.customer_id = $scope.customer.selected.id;
+			try {
+				$scope.invoice.customer_id = $scope.customer.selected.id;
+			}
+			catch (err) {
+				// customer_id not changed, just ignore
+			}
 			
 			$http({
 				method: "PUT",

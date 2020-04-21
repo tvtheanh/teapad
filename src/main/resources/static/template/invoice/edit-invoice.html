@@ -48,6 +48,19 @@
 							<span class="label label-success">{{invoice.saledate | date:'dd/MM/yyyy'}}</span>
 						</div>
 				    </div>
+				    <div class="form-group">
+				      	<label class="col-md-6"> Công nợ hiện tại</label>
+						<div class="col-md-6">
+							<span class="label label-danger label-large" style="font-size:13px;">{{currentDebt | currency:"":0}}</span>
+						</div>
+				    </div>
+				    <div class="form-group">
+				      	<label class="col-md-6">Công nợ mới</label>
+				      	<div class="col-md-6">
+							<input type="number" data-ng-model="invoice.debt" id="debt" required="required"
+								class="form-control input-sm" placeholder="Công nợ" />
+						</div>
+				    </div>
 				    <div>
 					    <div class="form-actions">
 							<button type="button" data-ng-click="submitInvoiceForm()" class="btn btn-primary btn-sm">

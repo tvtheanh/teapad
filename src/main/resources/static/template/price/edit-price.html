@@ -38,7 +38,7 @@
 					<label class="col-md-2" for="cate"> Loại giá </label>
 					<div class="col-md-5">
 						<select data-ng-model="price.cate" id="cate" required="required"
-							class="form-control input-sm">
+								class="form-control input-sm">
 							<option value="">Chọn loại giá</option>
         					<option>Giá chuẩn</option>
         					<option>Giá khuyến mãi</option>
@@ -52,7 +52,7 @@
 					<label class="col-md-2" for="price"> Giá (VND) </label>
 					<div class="col-md-3">
 						<input type="number" data-ng-model="price.price" id="price" required="required"
-							class="form-control input-sm" placeholder="Nhập giá" />
+								class="form-control input-sm" placeholder="Nhập giá" />
 					</div>
 					<div class="col-md-2">
 						<span class="label label-success label-large" style="font-size:17px;">{{price.price | currency:"":0}} VND</span>
@@ -64,8 +64,8 @@
 					<button type="button" data-ng-click="submitPriceForm()" class="btn btn-primary btn-sm">
 						Cập nhật
 					</button>
-					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
-						Reset Form
+					<button type="button" data-ng-click="cancel()" class="btn btn-warning btn-sm">
+						Hủy bỏ
 					</button>
 				</div>
 			</div>

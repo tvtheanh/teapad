@@ -73,6 +73,11 @@ create table product (
 
 select * from product;
 
+-- test data
+insert into product(name, provider_id, weight)
+select 'Sản phẩm ' || md5(random()::text),
+	floor(random()*3)+1::integer,
+	generate_series(1,1000) ;
 
 drop table if exists price cascade;
 
@@ -84,6 +89,12 @@ create table price (
 	enabled boolean default true,
 	del boolean default false
 );
+
+-- test data
+insert into price(product_id, price, cate)
+select generate_series(1,1000),
+	floor(random()*500000)+100000::integer,
+	 'Giá test';
 
 select e.id, e.product_id, p.name, e.cate, e.price
 from price e
@@ -124,7 +135,17 @@ create table customer (
 	del boolean default false
 );
 
+alter table customer
+add column debt decimal default 0;
+
+
+
 select * from customer;
+
+-- test data
+insert into customer(name, address)
+select 'Khách hàng ' || generate_series(1,1000),
+	'Địa chỉ' || md5(random()::text);
 
 
 /*
@@ -143,9 +164,10 @@ create table invoice (
 	del boolean default false
 );
 
+alter table invoice
+add column debt decimal default 0;
+
 select * from invoice;
-
-
 
 
 /*
@@ -171,7 +193,7 @@ select * from invoicedetail;
 
 
 
--- update invoice weight
+-- sync invoice weight
 update invoice set weight=0;
 update invoice v
 set weight=w.weight
@@ -183,7 +205,7 @@ from
 	group by i.invoice_id) w
 where v.id=w.invoice_id and v.del=false;
 
--- update invoice total
+-- sync invoice total
 update invoice set total=0;
 update invoice v
 set total=t.total
@@ -194,5 +216,18 @@ from
 	where i.del=false
 	group by i.invoice_id) t
 where v.id=t.invoice_id and v.del=false;
+
+-- sync customer debt
+update customer c
+set debt=d.sum_debt
+from
+	(select i.customer_id, sum(i.debt) as sum_debt
+	from invoice i 
+	where i.del=false
+	group by i.customer_id) d
+where c.id=d.customer_id;
+
+select * from customer
+where debt>0;
 
 

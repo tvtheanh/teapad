@@ -24,13 +24,14 @@
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
 				<tr data-ng-repeat="customer in $data">
-					<td title="'Mã'" data-filter="{id: 'number'}">{{customer.id}}</td>
+					<td title="'Mã'" data-filter="{id: 'text'}">{{customer.id}}</td>
 					<td title="'Tên khách hàng'" data-filter="{name: 'text'}">{{customer.name}}</td>
 					<td title="'Địa chỉ'" data-filter="{address: 'text'}" style="width: 25%">{{customer.address}}</td>
 					<td title="'Huyện'" data-filter="{district: 'text'}">{{customer.district}}</td>
 					<td title="'Tỉnh'" data-filter="{province: 'text'}">{{customer.province}}</td>
 					<td title="'Người đại diện'" data-filter="{contact: 'text'}">{{customer.contact}}</td>
 					<td title="'Điện thoại'" data-filter="{phone: 'text'}">{{customer.phone}}</td>
+					<td title="'Công nợ'" data-filter="{debt: 'text'}" class="text-right">{{customer.debt}}</td>
 					<td title="'Sửa'" >
 						<button type="button" data-ng-click="editCustomer(customer.id)"
 							class="btn btn-primary btn-sm">
