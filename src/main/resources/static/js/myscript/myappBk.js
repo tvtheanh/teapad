@@ -71,7 +71,7 @@ var GLOBAL_URL = {
 		
 		$scope.changeview = function (menu) {
 			$scope.selectedView = menu.view;
-			$scope.content = menu.view + ".html";
+			$scope.content = "/" + menu.view + ".html";
 			$location.path("/home-" + menu.view);
 			$route.reload();
 		}

@@ -9,6 +9,7 @@
 	
 	function ListCustomerCtrl($scope, $http, $location, NgTableParams) {
 		var self = this;
+		var dataset = undefined;
 		
 		var listCustomer = function () {
 			$http({
@@ -16,13 +17,32 @@
 				url: GLOBAL_URL.customerBaseUrl
 			})
 			.then(function success(response) {
-				self.tableParams = new NgTableParams({}, { dataset: response.data });
-				self.countAll = response.data.length;
+				dataset = response.data;
+				self.tableParams = new NgTableParams({}, { dataset: dataset });
+				self.countAll = dataset.length;
+				
 			}, function error(response) {
 				console.log(response);
 			});
 		};
 		listCustomer();
+		
+		var filterCustomer = function () {
+			var datasetDebt = dataset.filter(function (el) {
+				return el.debt > 0;
+			})
+			self.tableParams = new NgTableParams({}, { dataset: datasetDebt });
+			self.countAll = datasetDebt.length;
+		};
+		
+		$scope.hasDebt = function () {
+			if ($scope.confirmed) {
+				filterCustomer();
+			}
+			else {
+				listCustomer();
+			}
+		}
 		
 		
 		// click event for edit

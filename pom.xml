@@ -11,8 +11,9 @@
 	<groupId>org.tea</groupId>
 	<artifactId>demorest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demorest</name>
-	<description>Demo project for Spring Boot</description>
+	<name>teapad</name>
+	<packaging>war</packaging>
+	<description>Sale Management project using Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -111,6 +112,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+			    	<addResources>false</addResources>
+                    <source>1.8</source>
+                    <target>1.8</target>
+			    </configuration>
 			</plugin>
 		</plugins>
 	</build>
