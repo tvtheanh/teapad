@@ -2,7 +2,7 @@
 angular.module("myapp")
 .controller('ModalDemoCtrl', function ($uibModal, $log, $scope) {
     var pc = this;
-    pc.data = "/pdf/invoice/" + $scope.$parent.invoice_id; 
+    pc.data = "pdf/invoice/" + $scope.$parent.invoice_id; 
 
     pc.open = function (size) {
 	    var modalInstance = $uibModal.open({

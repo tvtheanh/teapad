@@ -45,10 +45,9 @@ public class JdbcEmployeeRepository implements EmployeeRepository {
 
 	@Override
 	public Employee add(Employee employee) {
-		final String INSERT_NEW_EMPLOYEE = "INSERT INTO employee (employee_id, fullname, title) "
-				+ "VALUES (?, ?, ?)";
+		final String INSERT_NEW_EMPLOYEE = "INSERT INTO employee (fullname, title) "
+				+ "VALUES (?, ?)";
 		jdbcTemplate.update(INSERT_NEW_EMPLOYEE,
-			employee.getId(), 
 			employee.getFullname(), 
 			employee.getTitle());
 		return employee;

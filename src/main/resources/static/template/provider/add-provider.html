@@ -1,7 +1,7 @@
 <div class="panel panel-default">
 	<div class="alert alert-info">
 		<span class="lead">Thêm mới</span>
-		<p>Thêm mới Nhân sự</p>
+		<p>Thêm mới Nhà cung cấp</p>
 	</div>
 	<div class="panel-body ">
 		<form data-enter-to-tab class="form-horizontal">
@@ -10,32 +10,23 @@
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.errorMessage}}
 			</div>
-			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed"
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed;"
 				data-uib-alert data-ng-if="alert.message"
 				data-close="closeAlert()" data-dismiss-on-timeout="3000">
 				{{alert.message}}
 			</div>
 			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-2" for="address"> Tên nhân viên </label>
+					<label class="col-md-2" for="name"> Tên nhà cung cấp </label>
 					<div class="col-md-5">
-						<input type="text" data-ng-model="employee.fullname" id="fullname" required="required"
-							class="form-control input-sm" placeholder="Nhập tên nhân viên" />
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="form-group col-md-12">
-					<label class="col-md-2" for="address"> Chức vụ </label>
-					<div class="col-md-5">
-						<input type="text" data-ng-model="employee.title" id="title" required="required"
-							class="form-control input-sm" placeholder="Nhập chức vụ" />
+						<input type="text" data-ng-model="provider.name" id="name" required="required"
+							class="form-control input-sm" placeholder="Nhập tên nhà cung cấp" />
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-actions">
-					<button type="button" data-ng-click="submitEmployeeForm()" class="btn btn-primary btn-sm">
+					<button type="button" data-ng-click="submitProviderForm()" class="btn btn-primary btn-sm">
 						Thêm mới
 					</button>
 					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">

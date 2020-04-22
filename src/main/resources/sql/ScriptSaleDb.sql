@@ -41,7 +41,7 @@ drop table if exists provider cascade;
 
 create table provider (
 	id serial primary key,
-	name varchar(100) unique,
+	name varchar(100),
 	del boolean default false
 );
 
@@ -230,4 +230,16 @@ where c.id=d.customer_id;
 select * from customer
 where debt>0;
 
+
+/*
+ * employee 
+ */
+drop table if exists employee cascade;
+
+CREATE TABLE employee (
+	employee_id serial NOT null primary key,
+	fullname varchar(50),
+	title varchar(50),
+	del bool NULL DEFAULT false
+);
 

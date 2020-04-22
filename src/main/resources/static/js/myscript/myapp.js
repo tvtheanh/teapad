@@ -61,7 +61,8 @@ var GLOBAL_URL = {
 		$scope.selectedView = "home";
 		$scope.content = "";
 		$scope.menulist = [
-			{view: "home", name: "Home"},
+			{view: "home", name: ""},
+			{view: "provider", name: "Nhà cung cấp"},
 			{view: "customer", name: "Khách hàng"},
 			{view: "product", name: "Sản phẩm"},
 			{view: "price", name: "Giá cả"},
@@ -71,8 +72,8 @@ var GLOBAL_URL = {
 		
 		$scope.changeview = function (menu) {
 			$scope.selectedView = menu.view;
-			$scope.content = menu.view + ".html";
-			$location.path("/home-" + menu.view);
+			$scope.content = $scope.selectedView + ".html";
+			$location.path("/home-" + $scope.selectedView);
 			$route.reload();
 		}
 		
@@ -86,6 +87,22 @@ var GLOBAL_URL = {
 		.config(["$routeProvider", function ($routeProvider) {
 	
 			$routeProvider
+				.when("/home-provider", {
+					templateUrl: GLOBAL_URL.providerTemplatePath + "home-provider.html"
+				})
+				.when("/list-provider", {
+					templateUrl: GLOBAL_URL.providerTemplatePath + "list-provider.html",
+					controller: "ListProviderCtrl",
+					controllerAs: "vm"
+				})
+				.when("/add-provider", {
+					templateUrl: GLOBAL_URL.providerTemplatePath + "add-provider.html",
+					controller: "AddProviderCtrl"
+				})
+				.when("/edit-provider/:id", {
+					templateUrl: GLOBAL_URL.providerTemplatePath + "edit-provider.html",
+					controller: "EditProviderCtrl"
+				})
 				.when("/home-customer", {
 					templateUrl: GLOBAL_URL.customerTemplatePath + "home-customer.html"
 				})

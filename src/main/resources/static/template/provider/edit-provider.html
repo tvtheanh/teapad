@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Cập nhật </span>
+		<p>Cập nhật Nhà cung cấp</p>
+	</div>
+	<div class="panel-body ">
+		<form data-enter-to-tab class="form-horizontal">
+			<div class="col-md-offset-8 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed;"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="name"> Tên nhà cung cấp </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="provider.name" id="name" required="required"
+							class="form-control input-sm" placeholder="Nhập tên nhà cung cấp" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions">
+					<button type="button" data-ng-click="submitProviderForm()" class="btn btn-primary btn-sm">
+						Cập nhật
+					</button>
+					<button type="button" data-ng-click="cancel()" class="btn btn-warning btn-sm">
+						Hủy bỏ
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
