@@ -1,6 +1,7 @@
 package org.tea.saleman.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public List<Invoice> listAll() {
 		return invoiceRepo.listAll();
+	}
+	
+	@Override
+	public List<Invoice> listByDate(LocalDate fromdate, LocalDate tilldate) {
+		return invoiceRepo.listByDate(fromdate, tilldate);
 	}
 
 	@Override

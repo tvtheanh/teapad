@@ -1,5 +1,7 @@
 package org.tea.saleman.domain;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ public class Product {
 	private String unit;
 	private int provider_id;
 	private String provider_name;
-	private int weight;   // gram
+	private BigDecimal weight;   // kg
 	private boolean del;
 	
 }

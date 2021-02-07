@@ -2,9 +2,6 @@ var GLOBAL_URL = {
 	get customerBaseUrl() {
 		return "rest/customer/";
 	},
-	get employeeBaseUrl() {
-		return "rest/employee/";
-	},
 	get productBaseUrl() {
 		return "rest/product/";
 	},
@@ -20,11 +17,14 @@ var GLOBAL_URL = {
 	get invoiceDetailBaseUrl() {
 		return "rest/invoicedetail/";
 	},
+	get giveawayBaseUrl() {
+		return "rest/giveaway/";
+	},
+	get searchBaseUrl() {
+		return "rest/search/";
+	},
 	get customerTemplatePath() {
 		return "template/customer/";
-	},
-	get employeeTemplatePath() {
-		return "template/employee/";
 	},
 	get productTemplatePath() {
 		return "template/product/";
@@ -40,6 +40,9 @@ var GLOBAL_URL = {
 	},
 	get invoiceDetailTemplatePath() {
 		return "template/invoicedetail/";
+	},
+	get giveawayTemplatePath() {
+		return "template/giveaway/";
 	}
 };
 
@@ -67,7 +70,7 @@ var GLOBAL_URL = {
 			{view: "product", name: "Sản phẩm"},
 			{view: "price", name: "Giá cả"},
 			{view: "invoice", name: "Đơn hàng"},
-			{view: "employee", name: "Nhân sự"}
+			{view: "giveaway", name: "Tặng phẩm"}
 		];
 		
 		$scope.changeview = function (menu) {
@@ -119,22 +122,6 @@ var GLOBAL_URL = {
 					templateUrl: GLOBAL_URL.customerTemplatePath + "edit-customer.html",
 					controller: "EditCustomerCtrl"
 				})
-				.when("/home-employee", {
-					templateUrl: GLOBAL_URL.employeeTemplatePath + "home-employee.html"
-				})
-				.when("/list-employee", {
-					templateUrl: GLOBAL_URL.employeeTemplatePath + "list-employee.html",
-					controller: "ListEmployeeCtrl",
-					controllerAs: "vm"
-				})
-				.when("/add-employee", {
-					templateUrl: GLOBAL_URL.employeeTemplatePath + "add-employee.html",
-					controller: "AddEmployeeCtrl"
-				})
-				.when("/edit-employee/:id", {
-					templateUrl: GLOBAL_URL.employeeTemplatePath + "edit-employee.html",
-					controller: "EditEmployeeCtrl"
-				})
 				.when("/home-product", {
 					templateUrl: GLOBAL_URL.productTemplatePath + "home-product.html"
 				})
@@ -179,9 +166,33 @@ var GLOBAL_URL = {
 					templateUrl: GLOBAL_URL.invoiceTemplatePath + "add-invoice.html",
 					controller: "AddInvoiceCtrl"
 				})
+				.when("/add-customer-invoice/:id", {
+					templateUrl: GLOBAL_URL.invoiceTemplatePath + "add-customer-invoice.html",
+					controller: "AddCustomerInvoiceCtrl"
+				})
+				.when("/edit-detail-invoice/:id", {
+					templateUrl: GLOBAL_URL.invoiceTemplatePath + "edit-detail-invoice.html",
+					controller: "EditDetailInvoiceCtrl"
+				})
 				.when("/edit-invoice/:id", {
 					templateUrl: GLOBAL_URL.invoiceTemplatePath + "edit-invoice.html",
 					controller: "EditInvoiceCtrl"
+				})
+				.when("/home-giveaway", {
+					templateUrl: GLOBAL_URL.giveawayTemplatePath + "home-giveaway.html"
+				})
+				.when("/list-giveaway", {
+					templateUrl: GLOBAL_URL.giveawayTemplatePath + "list-giveaway.html",
+					controller: "ListGiveawayCtrl",
+					controllerAs: "vm"
+				})
+				.when("/add-giveaway", {
+					templateUrl: GLOBAL_URL.giveawayTemplatePath + "add-giveaway.html",
+					controller: "AddGiveawayCtrl"
+				})
+				.when("/edit-giveaway/:id", {
+					templateUrl: GLOBAL_URL.giveawayTemplatePath + "edit-giveaway.html",
+					controller: "EditGiveawayCtrl"
 				});
 	
 		}]);

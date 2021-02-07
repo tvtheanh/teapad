@@ -38,7 +38,7 @@ public class JdbcProductRepository implements ProductRepository {
 			product.setUnit(rs.getString("unit"));
 			product.setProvider_id(rs.getInt("provider_id"));
 			product.setProvider_name(rs.getString("provider_name"));
-			product.setWeight(rs.getInt("weight"));
+			product.setWeight(rs.getBigDecimal("weight"));
 			
 			return product;
 		}

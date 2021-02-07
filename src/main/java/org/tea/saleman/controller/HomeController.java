@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -59,36 +60,6 @@ public class HomeController {
 	/**
 	 * create Jasper Report and export PDF
 	 */
-	@RequestMapping(value = "/pdf/ccdc")
-	public void pdfReport(HttpServletRequest request, HttpServletResponse response) {
-
-		// PDF byte stream
-		byte[] bytes = null;
-		try {
-			File jasperFile = ResourceUtils.getFile("classpath:report/ccdc.jasper");
-			// parameters for Jasper report
-			Map<String, Object> parameters = new HashMap<>();
-			parameters.put(JRParameter.REPORT_LOCALE, Locale.ITALY);
-			parameters.put("bangchu", ChuyenTienRaChu.ChuyenSangChu("12345678901"));
-			bytes = JasperRunManager.runReportToPdf(jasperFile.getPath(), parameters, dataSource.getConnection());
-		} catch (JRException | SQLException | FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		// now write PDF to the out stream of response
-		response.setContentType("application/pdf");
-		response.setContentLength(bytes.length);
-		ServletOutputStream outStream;
-		try {
-			outStream = response.getOutputStream();
-			outStream.write(bytes, 0, bytes.length);
-			outStream.flush();
-			outStream.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-	}
 	
 	@RequestMapping(value="/pdf/invoice/{id}")
 	public void invoiceReport(@PathVariable int id,
@@ -106,8 +77,20 @@ public class HomeController {
 			parameters.put("invoice_id", id);
 			parameters.put("customerName", invoice.getCustomerName());
 			parameters.put("customerAddress", invoice.getCustomerAddress());
-			parameters.put("weight", invoice.getWeight().divide(BigDecimal.valueOf(1000)));   // weight kg
-			parameters.put("bangchu", ChuyenTienRaChu.ChuyenSangChu(String.valueOf(invoice.getTotal())));
+			parameters.put("customerPhone", invoice.getCustomerPhone());
+			LocalDate saledate = invoice.getSaledate();
+			int day = saledate.getDayOfMonth();
+			int month = saledate.getMonthValue();
+			int year = saledate.getYear();
+			parameters.put("day", String.valueOf(day));
+			parameters.put("month", String.valueOf(month));
+			parameters.put("year", String.valueOf(year));
+			//parameters.put("weight", invoice.getWeight());   // weight kg
+			parameters.put("discount", invoice.getDiscount());
+			BigDecimal realval = invoice.getTotal().subtract(invoice.getDiscount());
+			parameters.put("realval", realval);
+			parameters.put("bangchu", ChuyenTienRaChu.ChuyenSangChu(String.valueOf(realval)));
+			parameters.put("giveaway", invoice.getGivecontent());
 			bytes = JasperRunManager.runReportToPdf(jasperFile.getPath(), parameters, dataSource.getConnection());
 		} catch (JRException | SQLException | FileNotFoundException e) {
 			e.printStackTrace();

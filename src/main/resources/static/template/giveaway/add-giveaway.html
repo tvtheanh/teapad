@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+	<div class="alert alert-info">
+		<span class="lead">Thêm mới</span>
+		<p>Thêm mới Chương trình tặng phẩm</p>
+	</div>
+	<div data-enter-to-tab class="panel-body ">
+		<form class="form-horizontal">
+			<div class="col-md-offset-8 alert alert-danger" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.errorMessage" 
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.errorMessage}}
+			</div>
+			<div class="col-md-offset-8 alert alert-success" role="alert" style="position:fixed"
+				data-uib-alert data-ng-if="alert.message"
+				data-close="closeAlert()" data-dismiss-on-timeout="3000">
+				{{alert.message}}
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="givename"> Tên chương trình </label>
+					<div class="col-md-5">
+						<input type="text" data-ng-model="giveaway.givename" id="givename" required="required"
+							class="form-control input-sm" placeholder="Tên chương trình tặng phẩm" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2" for="address"> Nội dung tặng phẩm </label>
+					<div class="col-md-5">
+						<textarea data-ng-model="giveaway.givecontent" id="address" rows="6"
+							class="form-control input-sm" placeholder="Nhập nội dung chương trình tặng phẩm">
+						</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-actions col-md-offset-2">
+					<button type="button" data-ng-click="submitGiveawayForm()" class="btn btn-primary btn-sm">
+						Thêm mới
+					</button>
+					<button type="button" data-ng-click="resetForm()" class="btn btn-warning btn-sm">
+						Reset Form
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	

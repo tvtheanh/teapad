@@ -154,6 +154,7 @@
 				data: $scope.product
 			})
 			.then(function success(response) {
+				console.log($scope.product);
 				$scope.alert = { message: "Cập nhật thành công!" };
 			}, function error(response) {
 				$scope.alert = { errorMessage: "(Error " + response.status + ") Cập nhật thất bại" };

@@ -71,7 +71,11 @@ create table product (
 	 del boolean default false
 );
 
-select * from product;
+select * from product WHERE id=4;
+
+UPDATE product
+SET weight=3.8
+WHERE id=4;
 
 -- test data
 insert into product(name, provider_id, weight)
@@ -156,16 +160,16 @@ drop table if exists invoice cascade;
 create table invoice (
 	id serial primary key,
 	customer_id int references customer(id),
-	saledate timestamp without time zone,
+	saledate DATE NOT NULL DEFAULT CURRENT_DATE,
 	weight decimal default 0,
 	total decimal default 0,
+	discount decimal default 0,
+	debt decimal default 0,
+	giveaway_id int references giveaway(id),
 	delivered smallint default 0,
 	paid smallint default 0,
 	del boolean default false
 );
-
-alter table invoice
-add column debt decimal default 0;
 
 select * from invoice;
 
@@ -243,3 +247,16 @@ CREATE TABLE employee (
 	del bool NULL DEFAULT false
 );
 
+
+
+/*
+ * giveaway 
+ */
+drop table if exists giveaway cascade;
+
+CREATE TABLE giveaway (
+	id serial NOT null primary key,
+	givename varchar(50),
+	givecontent text,
+	del bool NULL DEFAULT false
+);

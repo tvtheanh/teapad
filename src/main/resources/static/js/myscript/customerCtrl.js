@@ -44,6 +44,10 @@
 			}
 		}
 		
+		// click event for add customer invoice
+		$scope.addCustomerInvoice = function (customerId) {
+			$location.path("/add-customer-invoice/" + customerId);
+		};
 		
 		// click event for edit
 		$scope.editCustomer = function (customerId) {
@@ -119,6 +123,7 @@
 			$scope.alert = undefined;
 		};
 		
+		// get the selected customer
 		$http({
 			method: "GET",
 			url: GLOBAL_URL.customerBaseUrl + $scope.id

@@ -24,10 +24,11 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 	@Override
 	public List<Invoice> listAll() {
 		final String SELECT_ALL_INVOICES = 
-				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address,  "
-				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt  "
-				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id)  "
-				+ "WHERE i.del=false";
+				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, COALESCE(c.phone,'') AS phone,  "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt, i.discount, i.giveaway_id, '' AS givecontent  "
+				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id)  " 
+				+ "     LEFT JOIN giveaway g ON (i.giveaway_id=g.id)  "
+				+ "WHERE i.del=false AND i.saledate=CURRENT_DATE  ";
 		return jdbcTemplate.query(SELECT_ALL_INVOICES, new InvoiceMapper());
 	}
 	
@@ -40,44 +41,60 @@ public class JdbcInvoiceRepository implements InvoiceRepository {
 			invoice.setCustomer_id(rs.getInt("customer_id"));
 			invoice.setCustomerName(rs.getString("name"));
 			invoice.setCustomerAddress(rs.getString("address"));
+			invoice.setCustomerPhone(rs.getString("phone"));
 			invoice.setSaledate(rs.getObject("saledate", LocalDate.class));
 			invoice.setTotal(rs.getBigDecimal("total"));
 			invoice.setWeight(rs.getBigDecimal("weight"));
+			invoice.setDiscount(rs.getBigDecimal("discount"));
 			invoice.setDebt(rs.getBigDecimal("debt"));
+			invoice.setGiveaway_id(rs.getInt("giveaway_id"));
+			invoice.setGivecontent(rs.getString("givecontent"));
 			return invoice;
 		}
 		
+	}
+	
+	@Override
+	public List<Invoice> listByDate(LocalDate fromdate, LocalDate tilldate) {
+		final String SELECT_INVOICES = 
+				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, COALESCE(c.phone,'') AS phone,  "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt, i.discount, i.giveaway_id, '' AS givecontent  "
+				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id)  " 
+				+ "     LEFT JOIN giveaway g ON (i.giveaway_id=g.id)  "
+				+ "WHERE i.del=false AND i.saledate BETWEEN ? AND ? ";
+		return jdbcTemplate.query(SELECT_INVOICES, new InvoiceMapper(), fromdate, tilldate);
 	}
 
 	@Override
 	public Invoice findById(int id) {
 		final String SELECT_INVOICE_BY_ID = 
-				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, "
-				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt "
+				"SELECT i.id, i.customer_id, c.name, concat(c.address,', ',c.district,', ',c.province) AS address, COALESCE(c.phone,'') AS phone,  "
+				+ "     i.saledate, i.delivered, i.paid, i.total, i.weight, i.debt, i.discount, i.giveaway_id, g.givecontent "
 				+ "FROM invoice i JOIN customer c ON (i.customer_id=c.id) "
-				+ "WHERE i.id=? AND i.del=false";
+				+ "     LEFT JOIN giveaway g ON (i.giveaway_id=g.id)  "
+				+ "WHERE i.id=? AND i.del=false  ";
 		return jdbcTemplate.queryForObject(SELECT_INVOICE_BY_ID, new InvoiceMapper(), id);
 	}
 
 	@Override
 	public int add(Invoice invoice) {
-		final String INSERT_INVOICE = "INSERT INTO invoice (customer_id, saledate) "
-				+ " VALUES (?, ?) RETURNING id";
+		final String INSERT_INVOICE = "INSERT INTO invoice (customer_id, discount, giveaway_id) "
+				+ " VALUES (?, ?, ?) RETURNING id";
 		Map<String, Object> resultMap = jdbcTemplate.queryForMap(INSERT_INVOICE,
 				invoice.getCustomer_id(),
-				invoice.getSaledate());
+				invoice.getDiscount(),
+				invoice.getGiveaway_id());
 		return (int) resultMap.get("id");
 	}
 
 	@Override
 	public Invoice update(int id, Invoice invoice) {
-		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, saledate=?, delivered=?, paid=?, debt=?  "
+		final String UPDATE_INVOICE = "UPDATE invoice SET customer_id=?, discount=?, giveaway_id=?, debt=?  "
 				+ " WHERE id=?";
 		jdbcTemplate.update(UPDATE_INVOICE,
 				invoice.getCustomer_id(),
-				invoice.getSaledate(),
-				invoice.getDelivered(),
-				invoice.getPaid(),
+				invoice.getDiscount(),
+				invoice.getGiveaway_id(),
 				invoice.getDebt(),
 				id);
 		return invoice;

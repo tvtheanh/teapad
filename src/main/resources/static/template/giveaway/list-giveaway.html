@@ -1,13 +1,14 @@
 <div class="panel panel-default ">
 	<div class="alert alert-info">
 		<div class="row">
-			<div class="col-md-7">
-				<span class="lead">Danh sách Giá</span>
+			<div class="col-md-6">
+				<span class="lead">Danh sách chương trình tặng phẩm</span>
 				<p>Lọc <span class="badge">{{vm.tableParams.total()}}</span>
 				trong tổng số <span class="badge">{{vm.countAll}}</span></p>				  
 			</div>
-			<div class="col-md-5">
-				
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-2">
 			</div>
 		</div>
 	</div>
@@ -16,16 +17,12 @@
 			<table class="table table-bordered table-hover table-condensed"
 					data-ng-table="vm.tableParams" data-show-filter="true">
 				
-				<tr data-ng-repeat="price in $data | orderBy:'-id'">
-					<td title="'Mã giá'" data-filter="{id: 'number'}">{{price.id}}</td>
-					<td title="'Tên sản phẩm'" data-filter="{productName: 'text'}" style="width: 30%">{{price.productName}}</td>
-					<td title="'Đơn vị tính'" data-filter="{productUnit: 'text'}" style="width: 30%">{{price.productUnit}}</td>
-					<td title="'Loại giá'" data-filter="{cate: 'text'}">{{price.cate}}</td>
-					<td title="'Giá (VND)'" data-filter="{price: 'number'}" class="text-right">
-						{{price.price | currency:"":0}}
-					</td>
+				<tr data-ng-repeat="giveaway in $data">
+					<td title="'Mã'" data-filter="{id: 'text'}">{{giveaway.id}}</td>
+					<td title="'Tên chương trình'" data-filter="{name: 'text'}">{{giveaway.givename}}</td>
+					<td title="'Nội dung tặng phẩm'" data-filter="{address: 'text'}" style="width: 60%">{{giveaway.givecontent}}</td>
 					<td title="'Sửa'" >
-						<button type="button" data-ng-click="editPrice(price.id)"
+						<button type="button" data-ng-click="editGiveaway(giveaway.id)"
 							class="btn btn-primary btn-sm">
 							<span class="glyphicon glyphicon-edit"></span>
 						</button>
@@ -37,11 +34,11 @@
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 						<script type="text/ng-template" id="myPopoverTemplate.html">
-          					<button type="button" ng-click="deletePrice(price.id)"
+          					<button type="button" ng-click="deleteGiveaway(giveaway.id)"
 									class="btn btn-danger btn-sm">Xóa
 							</button>
     					</script>
-					</td>				
+					</td>					
 				</tr>
 				
 			</table>
